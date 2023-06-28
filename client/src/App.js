@@ -9,6 +9,7 @@ import Create from './Create';
 
 function App() {
 
+  const [listener, setListener] = useState(null)
   const [songs, setSongs] = useState([])
   const [ratings, setRatings] = useState([])
 
@@ -17,6 +18,7 @@ function App() {
     .then(resp => resp.json())
     .then(data => {
       console.log(data)
+      setSongs(data)
     })
   },[])
 
@@ -25,7 +27,7 @@ function App() {
     <div className="App">
       <Login></Login>
       <Ratings></Ratings>
-      <Songs></Songs>
+      <Songs songs={songs}></Songs>
       <Create></Create>
     </div>
   );
