@@ -8,6 +8,19 @@ import Songs from './Songs';
 import Create from './Create';
 
 function App() {
+
+  const [songs, setSongs] = useState([])
+  const [ratings, setRatings] = useState([])
+
+  useEffect(() => {
+    fetch("/songs")
+    .then(resp => resp.json())
+    .then(data => {
+      console.log(data)
+    })
+  },[])
+
+
   return (
     <div className="App">
       <Login></Login>

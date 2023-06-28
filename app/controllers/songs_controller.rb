@@ -2,7 +2,7 @@ class SongsController < ApplicationController
     #consider adding rescue from at top  for active record not found 
     def index
         songs = Song.all
-        render json: songs, include: :ratings 
+        render json: songs, include: :ratings
     end
 
     def show
