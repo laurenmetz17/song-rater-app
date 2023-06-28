@@ -5,3 +5,7 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Listener.create(name: "Lauren Metz", artist: true)
+Song.create(title: "Monte Carlo", artist: "Remi Wolf", duration: "3:15")
+Rating.create(review: 5, comment: "upbeat song for the summer", song_id:1, listener_id:1)
