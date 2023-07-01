@@ -1,8 +1,8 @@
 class Listener < ApplicationRecord
     validates :name, {presence: true}
-    validates :artist, {presence: true}
     validates :username, {presence: true}
-    #validate password?
+    validates :password, {presence: true}
+    validates :password_confirmation, {presence: true}
 
     has_secure_password
 
