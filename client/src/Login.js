@@ -18,11 +18,27 @@ function Login() {
     function handleLogin(e) {
         e.preventDefault()
         //write this funciton in usercontext file 
-        console.log(loginForm)
     }
 
-    function createListener() {
-        //write this function in usercontext file
+    function createListener(e) {
+        e.preventDefault();
+        console.log(signupForm)       
+        fetch('listeners', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(signupForm),
+            })
+            .then(resp => resp.json())
+            .then((newListener) => {
+                console.log(newListener);
+            });
+            e.target.children[1].value = ""
+            e.target.children[3].value = ""
+            e.target.children[5].value = ""
+            e.target.children[7].value = ""
+            e.target.children[9].value = ""
     }
 
     function updateLogin(e) {
@@ -59,7 +75,7 @@ function Login() {
                 <label>Password:</label>
                 <input type="text" name="password" onChange={updateSignup}></input>
                 <label>Confirm Password:</label>
-                <input type="text" name="password-_confirmation" onChange={updateSignup}></input>
+                <input type="text" name="password_confirmation" onChange={updateSignup}></input>
                 <input type="submit" value="Signup"></input>
             </form>   
         </div>

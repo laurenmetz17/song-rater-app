@@ -21,13 +21,13 @@ class ListenersController < ApplicationController
         if listener.valid?
             render json: listener, status: :created
         else
-            render json: {errors: person.errors.full_messages}, status: :unprocessable_entity
+            render json: {errors: listener.errors.full_messages}, status: :unprocessable_entity
         end
     end
 
     private
 
     def listener_params
-        params.permit(:name, :artist, :proifle_pic)
+        params.permit(:name, :username, :password, :password_confirmation, :proifle_pic)
     end
 end
