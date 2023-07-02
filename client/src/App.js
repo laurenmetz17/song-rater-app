@@ -3,7 +3,7 @@ import './App.css';
 import {React, useState, useEffect} from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from './Login';
-import Ratings from './Ratings';
+import ListenerSongs from './ListenerSongs';
 import Songs from './Songs';
 import Create from './Create';
 
@@ -26,7 +26,7 @@ function App() {
   return (
     <div className="App">
       <Login></Login>
-      <Ratings></Ratings>
+      <ListenerSongs></ListenerSongs>
       <Songs songs={songs}></Songs>
       <Create songs={songs} setSongs={setSongs}></Create>
     </div>

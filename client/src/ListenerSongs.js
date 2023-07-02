@@ -1,12 +1,12 @@
 import {React, useState, useEffect} from 'react';
 
-function Ratings() {
+function ListenerSongs() {
     return(
         <div>
-            <h1>Listener Ratings</h1>
+            <h1>Listener Songs</h1>
         </div>
     )
 
 }
 
-export default Ratings;
+export default ListenerSongs;
