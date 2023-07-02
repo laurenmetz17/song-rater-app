@@ -7,5 +7,5 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 Listener.create(name: "Lauren Metz", username: "laurenmetz17", password: "password", password_confirmation: "password")
-Song.create(title: "Monte Carlo", artist: "Remi Wolf", duration: "3:15")
+Song.create(title: "Monte Carlo", artist: "Remi Wolf")
 Rating.create(review: 5, comment: "upbeat song for the summer", song_id:1, listener_id:1)

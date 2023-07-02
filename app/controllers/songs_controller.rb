@@ -18,12 +18,17 @@ class SongsController < ApplicationController
     end
 
     def create
-        #create from a listener that is an artist
+        song = Song.create(song_params)
+        if song.valid?
+            render json: song, status: :created
+        else
+            render json: {errors: song.errors.full_messages}, status: :unprocessable_entity
+        end
     end
 
     private
 
     def song_params
-        params.permit(:title, :duration, :art)
+        params.permit(:title, :artist)
     end 
 end

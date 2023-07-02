@@ -28,7 +28,7 @@ function App() {
       <Login></Login>
       <Ratings></Ratings>
       <Songs songs={songs}></Songs>
-      <Create></Create>
+      <Create songs={songs} setSongs={setSongs}></Create>
     </div>
   );
 }

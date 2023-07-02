@@ -50,7 +50,6 @@ function Login() {
     function updateSignup(e) {
         const target = e.target.name
         setSignupForm({...signupForm, [target] : e.target.value})
-        console.log(signupForm)
     }
 
 
