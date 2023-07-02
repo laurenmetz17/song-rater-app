@@ -6,8 +6,8 @@ class SongsController < ApplicationController
     end
 
     def show
-        song = Song.fing(params[:id])
-        render json: song, include: :ratings
+        song = Song.find(params[:id])
+        render json: song, include: [:ratings, :listeners]
     end
 
     def destroy 

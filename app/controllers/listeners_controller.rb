@@ -1,12 +1,12 @@
 class ListenersController < ApplicationController
     def index
         listeners = Listener.all 
-        render json: listeners 
+        render json: listeners, include: [:ratings, :songs]
     end
 
     def show 
         listener = Listener.find(params[:id])
-        render json: listener, indclude: :ratings
+        render json: listener, include: [:ratings, :songs]
     end
 
     def destroy 
