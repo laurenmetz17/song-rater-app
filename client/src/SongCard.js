@@ -1,28 +1,23 @@
 import {React, useState, useEffect} from 'react';
+import RatingCard from './RatingCard';
 
 function SongCard({song}) {
 
+    console.log(song.ratings)
+
     const [showForm, setShowForm] = useState(false)
 
-    const rateForm = () => {
-        return(
-            <div>
-                <form id="make_rating">
-                    <select name="review" type="number" >
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                    <label>Comment:</label>
-                    <input name="comment" type="text"></input>
-                    <input name="submit" type="submit">Create Review</input>
-                </form>
-            </div>
-        );
+    function submitRating(e) {
+        e.preventDefault()
+        setShowForm(false)
+        //fetch to post review from listener
+        //why refresh
     }
-    //on submit create review with listener and song id and setShowForm state to false
+
+    const ratings = song.ratings.map(rating => {
+        return <RatingCard key={rating.id} rating={rating}></RatingCard>
+    })
+    
 
     console.log(song.ratings)
     //need rating card
@@ -31,7 +26,21 @@ function SongCard({song}) {
         <div>
             <p>{song.title}</p>
             <p>by {song.artist}</p>
-            <button onClick={()=> setShowForm(true)}>Rate Me!</button>
+            {ratings}
+            {showForm? (
+                <form id="make_rating" onSubmit={submitRating}>
+                <select name="review" type="number" >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <label>Comment:</label>
+                <input name="comment" type="text"/>
+                <input name="submit" type="submit"/>
+            </form>
+            ): <button onClick={()=> setShowForm(true)}>Rate Me!</button>}
         </div>
     )
 
