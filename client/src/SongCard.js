@@ -6,6 +6,7 @@ function SongCard({song}) {
     console.log(song.ratings)
 
     const [showForm, setShowForm] = useState(false)
+    const [showRatings, setShowRatings] = useState(false)
 
     function submitRating(e) {
         e.preventDefault()
@@ -26,7 +27,13 @@ function SongCard({song}) {
         <div>
             <p>{song.title}</p>
             <p>by {song.artist}</p>
-            {ratings}
+            {showRatings ? (
+                <div>
+                    <button onClick={() => setShowRatings(false)}>Hide Ratings</button>
+                    {ratings}
+                </div>
+                ): <button onClick={() => setShowRatings(true)}>Show Ratings</button>
+            }
             {showForm? (
                 <form id="make_rating" onSubmit={submitRating}>
                 <select name="review" type="number" >
