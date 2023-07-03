@@ -1,4 +1,4 @@
-import {React, useState, useEffect} from 'react';
+import {React, useState, useEffect, useContext} from 'react';
 
 function Login() {
 
@@ -14,11 +14,6 @@ function Login() {
         password: "",
         password_confirmation: ""
     })
-
-    function handleLogin(e) {
-        e.preventDefault()
-        //write this funciton in usercontext file 
-    }
 
     function createListener(e) {
         e.preventDefault();
@@ -52,6 +47,9 @@ function Login() {
         setSignupForm({...signupForm, [target] : e.target.value})
     }
 
+    function handleLogin(e) {
+        e.preventDefault();
+    }
 
     return(
         <div>
