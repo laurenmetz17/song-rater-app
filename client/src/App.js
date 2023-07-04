@@ -24,14 +24,23 @@ function App() {
     })
   },[])
 
-  //if listener not logged in show login else show logout
-
+  /*
+  useEffect(() => {
+    fetch("/me")
+    .then(resp => resp.json())
+    .then(listener => {
+      console.log(listener)
+      setListener(listener)
+    })
+  },[])
+  */
+ //dont stay logged in until you fix logout
 
   return (
     <ListenerContext.Provider value={listener}>
       <div className="App"> 
         {listener ? <Logout setListener={setListener}></Logout>: <Login setListener={setListener}></Login>}
-        <ListenerSongs></ListenerSongs>
+        <ListenerSongs songs={songs}></ListenerSongs>
         <Songs songs={songs}></Songs>
         <Create songs={songs} setSongs={setSongs}></Create>
       </div>
