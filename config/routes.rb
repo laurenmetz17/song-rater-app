@@ -2,7 +2,10 @@ Rails.application.routes.draw do
   resources :songs do 
     resources :ratings
   end
-  resources :listeners
+  resources :listeners, except: [:show]
+
+  post '/login', to: "sessions#create"
+  get '/me', to: "listeners#show"
 
   #custom route for listener log in and creating songs or ratings?
   

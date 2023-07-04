@@ -5,12 +5,15 @@ class ListenersController < ApplicationController
     end
 
     def show 
-        listener = Listener.find(params[:id])
-        render json: listener, include: [:ratings, :songs]
+        listener = Listener.find_by(id: session[:listener_id])
+        if listener
+            render json: listener, include: [:ratings, :songs]
+        else
+            render json: {error:"unathorized"}, status: :unathorized
+        end
     end
 
     def destroy 
-        #add dependent destroy
         listener = Listener.find(params[:id])
         listner.destroy
         head :no_content

@@ -1,6 +1,9 @@
 import {React, useState, useEffect, useContext} from 'react';
+import ListenerContext from './ListenerContext';
 
-function Login() {
+function Login({setListener}) {
+
+    const listener = useContext(ListenerContext)
 
     const [loginForm, setLoginForm] = useState({
         username: "",
@@ -24,16 +27,16 @@ function Login() {
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify(signupForm),
-            })
-            .then(resp => resp.json())
-            .then((newListener) => {
-                console.log(newListener);
-            });
-            e.target.children[1].value = ""
-            e.target.children[3].value = ""
-            e.target.children[5].value = ""
-            e.target.children[7].value = ""
-            e.target.children[9].value = ""
+        })
+        .then(resp => resp.json())
+        .then((newListener) => {
+            console.log(newListener);
+        });
+        e.target.children[1].value = ""
+        e.target.children[3].value = ""
+        e.target.children[5].value = ""
+        e.target.children[7].value = ""
+        e.target.children[9].value = ""
     }
 
     function updateLogin(e) {
@@ -49,6 +52,20 @@ function Login() {
 
     function handleLogin(e) {
         e.preventDefault();
+        fetch('login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(loginForm),
+        })
+        .then(resp => resp.json())
+        .then((listenerLog) => {
+            setListener(listenerLog)
+        })
+
+        //find the listener in the database by username and check if password matches
+        //set session user 
     }
 
     return(
