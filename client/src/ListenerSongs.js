@@ -13,13 +13,6 @@ function ListenerSongs() {
         ))
     }
 
-    console.log(songItems)
-
-    //not showing listener songs once logged in but showing not logged on
-
-    
-    //do by filtering songs to those with listener id so you get nothing if no listener
-
     return(
         <div>
             <h1>Listener Songs</h1>

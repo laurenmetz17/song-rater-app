@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   delete '/logout', to: "sessions#destroy"
   get '/me', to: "listeners#show"
 
-  #custom route for listener log in and creating songs or ratings?
+  #route to create ratings through the song
   
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!
