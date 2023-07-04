@@ -3,6 +3,7 @@ import './App.css';
 import {React, useState, useEffect, createContext, useContext } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from './Login';
+import Logout from './Logout';
 import ListenerSongs from './ListenerSongs';
 import Songs from './Songs';
 import Create from './Create';
@@ -29,7 +30,7 @@ function App() {
   return (
     <ListenerContext.Provider value={listener}>
       <div className="App"> 
-        <Login setListener={setListener}></Login>
+        {listener ? <Logout setListener={setListener}></Logout>: <Login setListener={setListener}></Login>}
         <ListenerSongs></ListenerSongs>
         <Songs songs={songs}></Songs>
         <Create songs={songs} setSongs={setSongs}></Create>

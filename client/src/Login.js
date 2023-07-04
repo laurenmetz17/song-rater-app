@@ -63,7 +63,9 @@ function Login({setListener}) {
         .then((listenerLog) => {
             setListener(listenerLog)
         })
-
+        //check if logged in already?
+        e.target.children[1].value = ""
+        e.target.children[3].value = ""
         //find the listener in the database by username and check if password matches
         //set session user 
     }

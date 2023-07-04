@@ -10,4 +10,9 @@ class SessionsController < ApplicationController
             render json: {errors: listener.errors.full_messages}
         end
     end
+
+    def destroy
+        session.delete :listener_id
+        head :no_content
+    end
 end

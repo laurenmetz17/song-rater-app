@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :listeners, except: [:show]
 
   post '/login', to: "sessions#create"
+  delete '/logout', to: "sessions#destroy"
   get '/me', to: "listeners#show"
 
   #custom route for listener log in and creating songs or ratings?
