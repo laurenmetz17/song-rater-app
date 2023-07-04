@@ -25,19 +25,26 @@ function App() {
   },[])
 
   
-  /*useEffect(() => {
+  useEffect(() => {
     fetch("/me")
-    .then(resp => resp.json())
-    .then(listenerLogged => {
-      console.log(listenerLogged)
-      if(listenerLogged != null) {
-        setListener(listenerLogged)
+    .then(resp => {
+      if (resp.ok) {
+        console.log(resp);
+        resp.json()
+        .then((listenerLog) => {
+            console.log(listenerLog)
+            setListener(listenerLog)
+        }) 
+      }
+      else {
+        throw new Error(`HTTP error, status = ${resp.status}`);
       }
     })
+    .catch(error => {
+      console.error(error);
+    })
   },[])
-  */
-  //cannot stay logged in breaks listener songs
-
+ 
   return (
     <ListenerContext.Provider value={listener}>
       <div className="App"> 

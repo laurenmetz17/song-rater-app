@@ -69,7 +69,7 @@ function Login({setListener}) {
                 .then((listenerLog) => {
                     console.log(listenerLog)
                     setListener(listenerLog)
-                }) // do something with successful response
+                }) 
             }
             else {
                 setLogError(true)
@@ -79,7 +79,6 @@ function Login({setListener}) {
         .catch(error => {
             console.error(error);
         })
-        //check if logged in already?
         e.target.children[1].value = ""
         e.target.children[3].value = ""
         
