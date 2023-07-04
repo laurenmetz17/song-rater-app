@@ -9,8 +9,7 @@ function Logout({setListener}) {
 
     function handleLogout(e) {
         e.preventDefault();
-
-        //fix logout (SyntaxError): Unexpected end of JSON input
+        
         fetch('logout', {
             method: 'DELETE',
             headers: {

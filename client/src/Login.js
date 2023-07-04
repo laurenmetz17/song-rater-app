@@ -1,9 +1,11 @@
 import {React, useState, useEffect, useContext} from 'react';
+import { resolvePath } from 'react-router-dom';
 import ListenerContext from './ListenerContext';
 
 function Login({setListener}) {
 
     const listener = useContext(ListenerContext)
+    const [logError,setLogError] = useState(false)
 
     const [loginForm, setLoginForm] = useState({
         username: "",
@@ -42,6 +44,7 @@ function Login({setListener}) {
     function updateLogin(e) {
         const target = e.target.name
         setLoginForm({...loginForm, [target] : e.target.value})
+        setLogError(false)
 
     }
 
@@ -59,15 +62,27 @@ function Login({setListener}) {
             },
             body: JSON.stringify(loginForm),
         })
-        .then(resp => resp.json())
-        .then((listenerLog) => {
-            setListener(listenerLog)
+        .then(resp => {
+            if (resp.ok) {
+                console.log(resp);
+                resp.json()
+                .then((listenerLog) => {
+                    console.log(listenerLog)
+                    setListener(listenerLog)
+                }) // do something with successful response
+            }
+            else {
+                setLogError(true)
+                throw new Error(`HTTP error, status = ${resp.status}`);
+            }
+        })
+        .catch(error => {
+            console.error(error);
         })
         //check if logged in already?
         e.target.children[1].value = ""
         e.target.children[3].value = ""
-        //find the listener in the database by username and check if password matches
-        //set session user 
+        
     }
 
     return(
@@ -80,6 +95,7 @@ function Login({setListener}) {
                 <input type="text" name="password" onChange={updateLogin}></input>
                 <input type="submit" value="Login"></input>      
             </form>
+            {logError ? <p>Invalid Username or Password</p> : null}
             <h1>Sign Up!</h1>
             <form id="sign up" onSubmit={createListener}>
                 <label>Name: </label>

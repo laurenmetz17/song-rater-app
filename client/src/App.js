@@ -24,17 +24,19 @@ function App() {
     })
   },[])
 
-  /*
-  useEffect(() => {
+  
+  /*useEffect(() => {
     fetch("/me")
     .then(resp => resp.json())
-    .then(listener => {
-      console.log(listener)
-      setListener(listener)
+    .then(listenerLogged => {
+      console.log(listenerLogged)
+      if(listenerLogged != null) {
+        setListener(listenerLogged)
+      }
     })
   },[])
   */
- //dont stay logged in until you fix logout
+  //cannot stay logged in breaks listener songs
 
   return (
     <ListenerContext.Provider value={listener}>

@@ -3,11 +3,11 @@ class SessionsController < ApplicationController
     def create
         listener = Listener.find_by(username: params[:username])
         # add password authenticate
-        if listener
-            session[:listener_id] = listener.id
-            render json: listener, include: [:ratings, :songs]
+        if listener&.authenticate(params[:password])
+                session[:listener_id] = listener.id
+                render json: listener, include: [:ratings, :songs], status: :created
         else 
-            render json: {errors: listener.errors.full_messages}
+            render json: { error: "Invalid username or password" }, status: :unauthorized
         end
     end
 
