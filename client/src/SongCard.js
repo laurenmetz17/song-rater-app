@@ -2,6 +2,7 @@ import {React, useState, useEffect} from 'react';
 import RatingCard from './RatingCard';
 
 function SongCard({song}) {
+    console.log(song)
 
     console.log(song.ratings)
 
@@ -15,9 +16,9 @@ function SongCard({song}) {
         //why refresh
     }
 
-    const ratings = song.ratings.map(rating => {
-        return <RatingCard key={rating.id} rating={rating}></RatingCard>
-    })
+    const ratings = song.ratings.map(rating => (
+        <RatingCard key={rating.id} rating={rating}></RatingCard>
+    ))
     
 
     console.log(song.ratings)

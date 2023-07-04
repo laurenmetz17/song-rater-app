@@ -1,14 +1,19 @@
 import {React, useState, useEffect, useContext} from 'react';
 import ListenerContext from './ListenerContext';
-import SongCard from './SongCard';
+import ListenerSongCard from './ListenerSongCard';
 
-function ListenerSongs({songs}) {
+function ListenerSongs() {
 
     const listener = useContext(ListenerContext)
+    console.log(listener)
+    let songItems
+    if (listener != null) {
+        songItems = listener.songs.map(song => (
+            <ListenerSongCard key={song.title} song={song}/>
+        ))
+    }
 
-    const songItems = listener ? listener.songs.map(song => {
-        <SongCard key={song.title} song={song}></SongCard>
-    }) : "not logged on"
+    console.log(songItems)
 
     //not showing listener songs once logged in but showing not logged on
 
