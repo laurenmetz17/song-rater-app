@@ -12,5 +12,6 @@ class RatingsController < ApplicationController
     private
 
     def rating_params
-        params.permit[:song_id, :listener_id, :review, :comment]
+        params.permit(:song_id, :listener_id, :review, :comment)
+    end
 end

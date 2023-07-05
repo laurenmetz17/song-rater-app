@@ -7,7 +7,9 @@ function SongCard({song}) {
     const listener = useContext(ListenerContext)
     console.log(listener)
 
+
     const [showForm, setShowForm] = useState(false)
+    const [ratings, setRatings] = useState(song.ratings)
     const [showRatings, setShowRatings] = useState(false)
     const [ratingForm, setRatingForm] = useState({
         review: 1,
@@ -15,7 +17,6 @@ function SongCard({song}) {
         song_id: song.id,
         listener_id: null
     })
-    //update rating form 
     
     function updateRating(e) {
         const target = e.target.name
@@ -28,10 +29,24 @@ function SongCard({song}) {
         console.log(ratingForm)
         setShowForm(false)
 
-        //fetch to post review from listener
+        fetch(`/songs/${song.id}/ratings`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(ratingForm),
+        })
+        .then(resp => resp.json())
+        .then((newRating) => {
+            console.log(newRating);
+            const newRatings = [...ratings, newRating]
+            setRatings(newRatings)
+            //some sort of state update here for songs and listener to show  listener song
+        });
+        //not allow the same listener to review the same song twice
     }
 
-    const ratings = song.ratings.map(rating => (
+    const ratingItems = ratings.map(rating => (
         <RatingCard key={rating.id} rating={rating}></RatingCard>
     ))
     
@@ -45,7 +60,7 @@ function SongCard({song}) {
             {showRatings ? (
                 <div>
                     <button onClick={() => setShowRatings(false)}>Hide Ratings</button>
-                    {ratings}
+                    {ratingItems}
                 </div>
                 ): <button onClick={() => setShowRatings(true)}>Show Ratings</button>
             }

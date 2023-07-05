@@ -13,7 +13,6 @@ function App() {
 
   const [listener, setListener] = useState(null)
   const [songs, setSongs] = useState([])
-  const [ratings, setRatings] = useState([])
 
   useEffect(() => {
     fetch("/songs")
@@ -50,7 +49,7 @@ function App() {
       <div className="App"> 
         {listener ? <Logout setListener={setListener}></Logout>: <Login setListener={setListener}></Login>}
         <ListenerSongs songs={songs}></ListenerSongs>
-        <Songs songs={songs}></Songs>
+        <Songs songs={songs} ></Songs>
         <Create songs={songs} setSongs={setSongs}></Create>
       </div>
     </ListenerContext.Provider>
