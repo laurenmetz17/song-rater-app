@@ -20,7 +20,7 @@ class SongsController < ApplicationController
     def create
         song = Song.create(song_params)
         if song.valid?
-            render json: song, status: :created
+            render json: song, include: [:ratings, :listeners], status: :created
         else
             render json: {errors: song.errors.full_messages}, status: :unprocessable_entity
         end

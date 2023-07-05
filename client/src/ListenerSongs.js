@@ -5,8 +5,8 @@ import ListenerSongCard from './ListenerSongCard';
 function ListenerSongs() {
 
     const listener = useContext(ListenerContext)
-    console.log(listener)
     let songItems
+
     if (listener != null) {
         songItems = listener.songs.map(song => (
             <ListenerSongCard key={song.title} song={song}/>
