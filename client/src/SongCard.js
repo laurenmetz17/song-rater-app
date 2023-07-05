@@ -5,8 +5,7 @@ import RatingCard from './RatingCard';
 function SongCard({song}) {
     
     const listener = useContext(ListenerContext)
-
-    console.log(song.ratings)
+    console.log(listener)
 
     const [showForm, setShowForm] = useState(false)
     const [showRatings, setShowRatings] = useState(false)
@@ -14,15 +13,22 @@ function SongCard({song}) {
         review: 1,
         comment: "",
         song_id: song.id,
-        //listener_id: {listener ? listener.id : null}
+        listener_id: null
     })
+    //update rating form 
+    
+    function updateRating(e) {
+        const target = e.target.name
+        setRatingForm({...ratingForm, [target] : e.target.value, "listener_id": listener.id})
+    }
+    
 
     function submitRating(e) {
         e.preventDefault()
+        console.log(ratingForm)
         setShowForm(false)
 
         //fetch to post review from listener
-        //why refresh
     }
 
     const ratings = song.ratings.map(rating => (
@@ -31,7 +37,6 @@ function SongCard({song}) {
     
 
     console.log(song.ratings)
-    //need rating card
     
     return(
         <div>
@@ -46,7 +51,7 @@ function SongCard({song}) {
             }
             {showForm? (
                 <form id="make_rating" onSubmit={submitRating}>
-                <select name="review" type="number" >
+                <select name="review" type="number" onChange={updateRating}>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
@@ -54,7 +59,7 @@ function SongCard({song}) {
                     <option value="5">5</option>
                 </select>
                 <label>Comment:</label>
-                <input name="comment" type="text"/>
+                <input name="comment" type="text" onChange={updateRating}/>
                 <input name="submit" type="submit"/>
             </form>
             ): <button onClick={() => {listener? setShowForm(true): setShowForm(false)}}>{listener ? "Rate Me!" : "Log In to Rate Me!"}</button>}
