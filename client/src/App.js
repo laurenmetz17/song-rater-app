@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import {React, useState, useEffect, createContext, useContext } from 'react';
+import {React, useState, useEffect, createContext, useContext, Switch} from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from './Login';
 import Logout from './Logout';
@@ -8,6 +8,7 @@ import ListenerSongs from './ListenerSongs';
 import Songs from './Songs';
 import Create from './Create';
 import ListenerContext from './ListenerContext';
+import NavBar from './NavBar';
 
 function App() {
 
@@ -45,6 +46,18 @@ function App() {
   },[])
  
   return (
+    /*
+    <BrowserRouter>
+      <NavBar/>
+      <Switch>
+        <ListenerContext.Provider value={listener}>
+          <Route path='/' exact element={() =>{listener ? <Logout setListener={setListener}></Logout>: <Login setListener={setListener}></Login>}}/>
+          <Route path='/songs' element={<Songs songs={songs} ></Songs>} />
+          <Route path='/listener_songs' element={<ListenerSongs songs={songs}></ListenerSongs>} />
+          </ListenerContext.Provider>
+      </Switch>
+    </BrowserRouter>
+    */
     <ListenerContext.Provider value={listener}>
       <div className="App"> 
         {listener ? <Logout setListener={setListener}></Logout>: <Login setListener={setListener}></Login>}

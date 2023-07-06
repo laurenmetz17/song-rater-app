@@ -41,13 +41,14 @@ function SongCard({song}) {
             console.log(newRating);
             const newRatings = [...ratings, newRating]
             setRatings(newRatings)
+
             //some sort of state update here for songs and listener to show  listener song
         });
         //not allow the same listener to review the same song twice
     }
 
     const ratingItems = ratings.map(rating => (
-        <RatingCard key={rating.id} rating={rating}></RatingCard>
+        <RatingCard key={rating.id} rating={rating} song={song} setRatings={setRatings}></RatingCard>
     ))
     
 
