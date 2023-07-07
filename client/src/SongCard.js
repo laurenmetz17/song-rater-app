@@ -48,7 +48,7 @@ function SongCard({song}) {
     }
 
     const ratingItems = ratings.map(rating => (
-        <RatingCard key={rating.id} rating={rating} song={song} setRatings={setRatings}></RatingCard>
+        <RatingCard key={rating.id} rating={rating} song={song} ratings={ratings} setRatings={setRatings}></RatingCard>
     ))
     
 
@@ -58,13 +58,6 @@ function SongCard({song}) {
         <div>
             <p>{song.title}</p>
             <p>by {song.artist}</p>
-            {showRatings ? (
-                <div>
-                    <button onClick={() => setShowRatings(false)}>Hide Ratings</button>
-                    {ratingItems}
-                </div>
-                ): <button onClick={() => setShowRatings(true)}>Show Ratings</button>
-            }
             {showForm? (
                 <form id="make_rating" onSubmit={submitRating}>
                 <select name="review" type="number" onChange={updateRating}>
@@ -79,6 +72,13 @@ function SongCard({song}) {
                 <input name="submit" type="submit"/>
             </form>
             ): <button onClick={() => {listener? setShowForm(true): setShowForm(false)}}>{listener ? "Rate Me!" : "Log In to Rate Me!"}</button>}
+            {showRatings ? (
+                <div>
+                    <button onClick={() => setShowRatings(false)}>Hide Ratings</button>
+                    {ratingItems}
+                </div>
+                ): <button onClick={() => setShowRatings(true)}>Show Ratings</button>
+            }
         </div>
     )
 
