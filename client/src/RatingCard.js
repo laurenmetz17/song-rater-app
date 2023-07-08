@@ -31,7 +31,7 @@ function RatingCard({rating, song, setRatings, listener}) {
             setEditError(true)
             setTimeout(() => {
                 setEditError(false);
-              }, "1500");
+            }, "1500");
         }
     }
 

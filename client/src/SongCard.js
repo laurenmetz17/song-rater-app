@@ -3,14 +3,14 @@ import ListenerContext from './ListenerContext';
 import RatingCard from './RatingCard';
 
 function SongCard({song}) {
-
-    //agregate song ratings to see overall
     
     const listener = useContext(ListenerContext)
     const [showForm, setShowForm] = useState(false)
     const [ratings, setRatings] = useState(song.ratings)
     const [showRatings, setShowRatings] = useState(false)
     const ratingAverage = (ratings.reduce((sum, rating) => sum = sum + rating.review, 0))/ratings.length
+    const ratingIds = ratings.map(rating => rating.id)
+    const [ratingError, setRatingError] = useState(false)
     const [ratingForm, setRatingForm] = useState({
         review: 1,
         comment: "",
@@ -28,23 +28,30 @@ function SongCard({song}) {
         e.preventDefault()
         console.log(ratingForm)
         setShowForm(false)
+        if (ratingIds.includes(listener.id)) {
+            fetch(`/songs/${song.id}/ratings`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(ratingForm),
+            })
+            .then(resp => resp.json())
+            .then((newRating) => {
+                console.log(newRating);
+                const newRatings = [...ratings, newRating]
+                setRatings(newRatings)
 
-        fetch(`/songs/${song.id}/ratings`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(ratingForm),
-        })
-        .then(resp => resp.json())
-        .then((newRating) => {
-            console.log(newRating);
-            const newRatings = [...ratings, newRating]
-            setRatings(newRatings)
-
-            //some sort of state update here for songs and listener to show  listener song
-        });
-        //not allow the same listener to review the same song twice
+                //some sort of state update here for songs and listener to show  listener song
+            });
+            //not allow the same listener to review the same song twice
+        }
+        else {
+            setRatingError(true)
+            setTimeout(() => {
+                setRatingError(false);
+            }, "1500");
+        }
     }
 
     const ratingItems = ratings.map(rating => (
@@ -59,6 +66,7 @@ function SongCard({song}) {
             <p>{song.title}</p>
             <p>by {song.artist}</p>
             <p>Average Listener Rating: {ratingAverage > 0 ? ratingAverage: 0}</p>
+            <h5 style={{color:"red"}}>{ratingError ? "You've already rated this song": null}</h5>
             {showForm? (
                 <form id="make_rating" onSubmit={submitRating}>
                 <select name="review" type="number" onChange={updateRating}>
