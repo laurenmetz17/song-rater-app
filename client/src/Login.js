@@ -94,7 +94,7 @@ function Login({setListener}) {
                 <input type="text" name="password" onChange={updateLogin}></input>
                 <input type="submit" value="Login"></input>      
             </form>
-            {logError ? <p>Invalid Username or Password</p> : null}
+            {logError ? <p style={{color: "red"}}>Invalid Username or Password</p> : null}
             <h1>Sign Up!</h1>
             <form id="sign up" onSubmit={createListener}>
                 <label>Name: </label>
