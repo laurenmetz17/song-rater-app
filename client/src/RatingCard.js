@@ -13,7 +13,7 @@ function RatingCard({rating, song, setRatings, listener}) {
 
     function handleDelete(e) {
         e.preventDefault()
-        if (listener.id == rating.id) {
+        if (listener.id == rating.listener_id) {
             fetch(`/songs/${song.id}/ratings/${rating.id}`, {
                 method: 'DELETE',
                 headers: {
@@ -25,6 +25,7 @@ function RatingCard({rating, song, setRatings, listener}) {
             .then(() => {
                 const newRatings = song.ratings.filter(item => item.id != rating.id)
                 setRatings(newRatings)
+                //something happening where old reviews are staying
             })
         }
         else {
@@ -43,7 +44,7 @@ function RatingCard({rating, song, setRatings, listener}) {
     function updateRating(e) {
         e.preventDefault();
         e.target.children[0].value = ''
-        if (listener.id == rating.id) {
+        if (listener.id == rating.listener_id) {
             fetch(`/songs/${song.id}/ratings/${rating.id}`, {
                 method: 'PATCH',
                 headers: {
@@ -54,6 +55,7 @@ function RatingCard({rating, song, setRatings, listener}) {
             .then((newRating) => {
                 console.log(newRating)
                 const newRatings = song.ratings.map(rating => rating.id == newRating.id? newRating : rating) 
+                console.log(newRatings)
                 setRatings(newRatings)
             })
         }

@@ -4,8 +4,6 @@ import ListenerContext from './ListenerContext';
 
 function Login({setListener}) {
 
-    //implement signup error
-
     const listener = useContext(ListenerContext)
     const [logError,setLogError] = useState(false)
     const [signupError, setSignupError] = useState(false)
