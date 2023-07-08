@@ -1,9 +1,13 @@
 import { React, useState, useContext } from "react"
+import ListenerContext from "./ListenerContext"
 
 
-function RatingCard({rating, song, setRatings, listener}) {
+function RatingCard({rating, song, setRatings}) {
     const star = "⭐"
     let stars = ""
+    
+    const listener = useContext(ListenerContext)
+    console.log(listener)
 
     for(let i=0; i< rating.review ; i++){
         stars += star
@@ -13,20 +17,27 @@ function RatingCard({rating, song, setRatings, listener}) {
 
     function handleDelete(e) {
         e.preventDefault()
-        if (listener.id == rating.listener_id) {
-            fetch(`/songs/${song.id}/ratings/${rating.id}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(null), 
-            })
-            .then(resp => console.log(resp))
-            .then(() => {
-                const newRatings = song.ratings.filter(item => item.id != rating.id)
-                setRatings(newRatings)
-                //something happening where old reviews are staying
-            })
+        if (listener != null) {
+            if (listener.id == rating.listener_id) {
+                fetch(`/songs/${song.id}/ratings/${rating.id}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(null), 
+                })
+                .then(resp => console.log(resp))
+                .then(() => {
+                    const newRatings = song.ratings.filter(item => item.id != rating.id)
+                    setRatings(newRatings)
+                })
+            }
+            else {
+                setEditError(true)
+                setTimeout(() => {
+                    setEditError(false);
+                }, "1500");
+            }
         }
         else {
             setEditError(true)
@@ -44,26 +55,34 @@ function RatingCard({rating, song, setRatings, listener}) {
     function updateRating(e) {
         e.preventDefault();
         e.target.children[0].value = ''
-        if (listener.id == rating.listener_id) {
-            fetch(`/songs/${song.id}/ratings/${rating.id}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({comment: commentChange}), 
-            }).then(resp => resp.json())
-            .then((newRating) => {
-                console.log(newRating)
-                const newRatings = song.ratings.map(rating => rating.id == newRating.id? newRating : rating) 
-                console.log(newRatings)
-                setRatings(newRatings)
-            })
+        if (listener != null) {
+            if (listener.id == rating.listener_id) {
+                fetch(`/songs/${song.id}/ratings/${rating.id}`, {
+                    method: 'PATCH',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({comment: commentChange}), 
+                }).then(resp => resp.json())
+                .then((newRating) => {
+                    console.log(newRating)
+                    const newRatings = song.ratings.map(rating => rating.id == newRating.id? newRating : rating) 
+                    console.log(newRatings)
+                    setRatings(newRatings)
+                })
+            }
+            else {
+                setEditError(true)
+                setTimeout(() => {
+                    setEditError(false);
+                }, "1500");
+            }
         }
         else {
             setEditError(true)
             setTimeout(() => {
                 setEditError(false);
-              }, "1500");
+            }, "1500");
         }
     }
     
