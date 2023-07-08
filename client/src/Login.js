@@ -4,8 +4,11 @@ import ListenerContext from './ListenerContext';
 
 function Login({setListener}) {
 
+    //implement signup error
+
     const listener = useContext(ListenerContext)
     const [logError,setLogError] = useState(false)
+    const [signupError, setSignupError] = useState(false)
 
     const [loginForm, setLoginForm] = useState({
         username: "",
@@ -30,10 +33,22 @@ function Login({setListener}) {
               },
               body: JSON.stringify(signupForm),
         })
-        .then(resp => resp.json())
-        .then((newListener) => {
-            console.log(newListener);
-        });
+        .then(resp => {
+            if (resp.ok) {
+                console.log(resp);
+                resp.json()
+                .then((newListener) => {
+                    console.log(newListener)
+                }) 
+            }
+            else {
+                setSignupError(true)
+                throw new Error(`HTTP error, status = ${resp.status}`);
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        })
         e.target.children[1].value = ""
         e.target.children[3].value = ""
         e.target.children[5].value = ""
@@ -51,6 +66,7 @@ function Login({setListener}) {
     function updateSignup(e) {
         const target = e.target.name
         setSignupForm({...signupForm, [target] : e.target.value})
+        setSignupError(false)
     }
 
     function handleLogin(e) {
@@ -108,7 +124,8 @@ function Login({setListener}) {
                 <label>Confirm Password:</label>
                 <input type="text" name="password_confirmation" onChange={updateSignup}></input>
                 <input type="submit" value="Signup"></input>
-            </form>   
+            </form> 
+            {signupError ? <p style={{color: "red"}}>Invalid Signup Info</p> : null}  
         </div>
     )
 
