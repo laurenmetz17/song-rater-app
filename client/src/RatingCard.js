@@ -1,8 +1,15 @@
-import { React, useState } from "react"
+import { React, useState, useContext } from "react"
 
 
-function RatingCard({rating, song, setRatings}) {
+function RatingCard({rating, song, setRatings, listener}) {
     const star = "⭐"
+    let stars = ""
+
+    for(let i=0; i< rating.review ; i++){
+        stars += star
+    }
+
+    //make it so listener can only change their own ratings
 
     const [commentChange, setCommentChange] = useState("")
 
@@ -47,7 +54,7 @@ function RatingCard({rating, song, setRatings}) {
     
     return(
         <div id="rating">
-            <h5>{rating.review}</h5>
+            <h5>{stars}</h5>
             <h5>{rating.comment}</h5>
             <p>Change Comment :</p>
             <form id='update_rating' onSubmit={updateRating}>

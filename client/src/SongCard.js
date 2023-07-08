@@ -3,9 +3,12 @@ import ListenerContext from './ListenerContext';
 import RatingCard from './RatingCard';
 
 function SongCard({song}) {
+
+    //agregate song ratings to see overall
     
     const listener = useContext(ListenerContext)
     console.log(listener)
+    console.log(song.ratings)
 
 
     const [showForm, setShowForm] = useState(false)
@@ -48,7 +51,7 @@ function SongCard({song}) {
     }
 
     const ratingItems = ratings.map(rating => (
-        <RatingCard key={rating.id} rating={rating} song={song} ratings={ratings} setRatings={setRatings}></RatingCard>
+        <RatingCard key={rating.id} rating={rating} song={song} ratings={ratings} setRatings={setRatings} listener={listener}></RatingCard>
     ))
     
 
