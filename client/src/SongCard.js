@@ -7,13 +7,10 @@ function SongCard({song}) {
     //agregate song ratings to see overall
     
     const listener = useContext(ListenerContext)
-    console.log(listener)
-    console.log(song.ratings)
-
-
     const [showForm, setShowForm] = useState(false)
     const [ratings, setRatings] = useState(song.ratings)
     const [showRatings, setShowRatings] = useState(false)
+    const ratingAverage = (ratings.reduce((sum, rating) => sum = sum + rating.review, 0))/ratings.length
     const [ratingForm, setRatingForm] = useState({
         review: 1,
         comment: "",
@@ -61,6 +58,7 @@ function SongCard({song}) {
         <div>
             <p>{song.title}</p>
             <p>by {song.artist}</p>
+            <p>Average Listener Rating: {ratingAverage > 0 ? ratingAverage: 0}</p>
             {showForm? (
                 <form id="make_rating" onSubmit={submitRating}>
                 <select name="review" type="number" onChange={updateRating}>
