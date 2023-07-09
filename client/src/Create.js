@@ -15,7 +15,7 @@ function Create({songs, setSongs}) {
 
     function createSong(e) {
         e.preventDefault();       
-        fetch('songs/new', {
+        fetch('', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

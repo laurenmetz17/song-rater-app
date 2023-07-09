@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :songs do 
+  resources :songs, except: [:create] do 
     resources :ratings
   end
   resources :listeners, except: [:show]
@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   post '/login', to: "sessions#create"
   delete '/logout', to: "sessions#destroy"
   get '/me', to: "listeners#show"
-  #post '/songs/new', to "songs#create"
+  post '/songs/new', to: "songs#create"
 
   #route to create ratings through the song
   

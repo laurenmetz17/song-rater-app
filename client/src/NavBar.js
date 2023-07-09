@@ -12,7 +12,7 @@ function NavBar() {
 
     return(
         <nav className="nav">
-            <a href="/" class="site-name">Song Rater</a>
+            <a href="/" className="site-name">Song Rater</a>
             <ul>
                 <CustomLink href= "/songs">Songs</CustomLink>
                 <CustomLink href= "/listeners">Listener Songs</CustomLink>
