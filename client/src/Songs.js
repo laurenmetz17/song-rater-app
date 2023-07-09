@@ -9,8 +9,8 @@ function Songs({songs}) {
 
     
     return(
-        <div>
-            <h1>{songItems}</h1>
+        <div className="song-container">
+            {songItems}
         </div>
     )
 

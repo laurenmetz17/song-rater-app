@@ -17,6 +17,21 @@ function SongCard({song}) {
         song_id: song.id,
         listener_id: null
     })
+    console.log(song)
+
+    let albumCover
+    fetch(`https://itunes.apple.com/search?media=music&entity=song&term=${song.title}`)
+    .then(resp => resp.json())
+    .then(data => {
+        console.log(data)
+        //const songTarget = data.results.filter(song => song.artistName.toLowerCase() === song.artist.toLowerCase());  
+            //this is sensitive to spaces in the song title and artist 
+            //of the song is not within the first 50 entries also doesnt work 
+        //albumCover =songTarget[0].artworkUrl100;
+        console.log(albumCover)
+    })
+
+    
     
     function updateRating(e) {
         const target = e.target.name
@@ -56,9 +71,10 @@ function SongCard({song}) {
     ))
     
     return(
-        <div>
-            <p>{song.title}</p>
-            <p>by {song.artist}</p>
+        <div className='song-card'>
+            <h2>{song.title}</h2>
+            <h5>by {song.artist}</h5>
+            <img src={albumCover} alt="album cover"></img>
             <p>Average Listener Rating: {ratingAverage > 0 ? ratingAverage: 0}</p>
             <h5 style={{color:"red"}}>{ratingError ? "You've already rated this song": null}</h5>
             {showForm? (
