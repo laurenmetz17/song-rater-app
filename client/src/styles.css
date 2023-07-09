@@ -47,3 +47,25 @@ body {
 .nav li.hover {
     background-color: #777;
 }
+
+.song-card {
+    width:100%;
+    padding: 2rem;
+    display: flex;
+    border-bottom: 1rem solid
+}
+
+.song-card .left {
+    height: 100%; 
+    width: 50%;
+}
+.song-card .right {
+    height: 100%;
+    width: 50%
+}
+
+.song-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}

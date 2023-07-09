@@ -75,32 +75,36 @@ function SongCard({song}) {
     
     return(
         <div className='song-card'>
-            <h2>{song.title}</h2>
-            <h5>by {song.artist}</h5>
-            <img src={cover} alt="album cover" ></img>
-            <p>Average Listener Rating: {ratingAverage > 0 ? ratingAverage: 0}</p>
-            <h5 style={{color:"red"}}>{ratingError ? "You've already rated this song": null}</h5>
-            {showForm? (
-                <form id="make_rating" onSubmit={submitRating}>
-                <select name="review" type="number" onChange={updateRating}>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
-                <label>Comment:</label>
-                <input name="comment" type="text" onChange={updateRating}/>
-                <input name="submit" type="submit"/>
-            </form>
-            ): <button onClick={() => {listener? setShowForm(true): setShowForm(false)}}>{listener ? "Rate Me!" : "Log In to Rate Me!"}</button>}
-            {showRatings ? (
-                <div>
-                    <button onClick={() => setShowRatings(false)}>Hide Ratings</button>
-                    {ratingItems}
-                </div>
-                ): <button onClick={() => setShowRatings(true)}>Show Ratings</button>
-            }
+            <div className='left'>
+                <h2>{song.title}</h2>
+                <h5>by {song.artist}</h5>
+                <img src={cover} alt="album cover" ></img>
+            </div>
+            <div className='right'>
+                <p>Average Listener Rating: {ratingAverage > 0 ? ratingAverage: 0}</p>
+                <h5 style={{color:"red"}}>{ratingError ? "You've already rated this song": null}</h5>
+                {showForm? (
+                    <form id="make_rating" onSubmit={submitRating}>
+                    <select name="review" type="number" onChange={updateRating}>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                    <label>Comment:</label>
+                    <input name="comment" type="text" onChange={updateRating}/>
+                    <input name="submit" type="submit"/>
+                </form>
+                ): <button onClick={() => {listener? setShowForm(true): setShowForm(false)}}>{listener ? "Rate Me!" : "Log In to Rate Me!"}</button>}
+                {showRatings ? (
+                    <div>
+                        <button onClick={() => setShowRatings(false)}>Hide Ratings</button>
+                        {ratingItems}
+                    </div>
+                    ): <button onClick={() => setShowRatings(true)}>Show Ratings</button>
+                }
+            </div>  
         </div>
     )
 
