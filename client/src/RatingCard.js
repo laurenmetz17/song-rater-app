@@ -7,7 +7,6 @@ function RatingCard({rating, song, setRatings}) {
     let stars = ""
     
     const listener = useContext(ListenerContext)
-    console.log(listener)
 
     for(let i=0; i< rating.review ; i++){
         stars += star

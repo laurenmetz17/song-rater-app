@@ -9,6 +9,7 @@ import Songs from './Songs';
 import Create from './Create';
 import ListenerContext from './ListenerContext';
 import NavBar from './NavBar';
+import "./styles.css"
 
 function App() {
 
@@ -19,7 +20,6 @@ function App() {
     fetch("/songs")
     .then(resp => resp.json())
     .then(data => {
-      console.log(data)
       setSongs(data)
     })
   },[])
@@ -29,10 +29,8 @@ function App() {
     fetch("/me")
     .then(resp => {
       if (resp.ok) {
-        console.log(resp);
         resp.json()
         .then((listenerLog) => {
-            console.log(listenerLog)
             setListener(listenerLog)
         }) 
       }
@@ -44,13 +42,34 @@ function App() {
       console.error(error);
     })
   },[])
+
+  let currentPage
+  switch (window.location.pathname) {
+    case "/":
+      currentPage = <Songs songs={songs} ></Songs>
+      break
+    case "/songs":
+      currentPage = <Songs songs={songs} ></Songs>
+      break
+    case  "/listeners":
+      currentPage = <ListenerSongs songs={songs}></ListenerSongs>
+      break
+    case "/login":
+      currentPage = <Login setListener={setListener}></Login>
+    break
+  }
  
   return (
+    <div className='App'>
+      <NavBar/>
+      {currentPage}
+    </div>
+
     /*
     <BrowserRouter>
-      <NavBar/>
       <Switch>
         <ListenerContext.Provider value={listener}>
+          <NavBar/>
           <Route path='/' exact element={() =>{listener ? <Logout setListener={setListener}></Logout>: <Login setListener={setListener}></Login>}}/>
           <Route path='/songs' element={<Songs songs={songs} ></Songs>} />
           <Route path='/listener_songs' element={<ListenerSongs songs={songs}></ListenerSongs>} />
@@ -58,6 +77,7 @@ function App() {
       </Switch>
     </BrowserRouter>
     */
+    /*
     <ListenerContext.Provider value={listener}>
       <div className="App"> 
         {listener ? <Logout setListener={setListener}></Logout>: <Login setListener={setListener}></Login>}
@@ -66,6 +86,7 @@ function App() {
         <Create songs={songs} setSongs={setSongs}></Create>
       </div>
     </ListenerContext.Provider>
+    */
       
   );
 }

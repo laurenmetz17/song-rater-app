@@ -5,11 +5,10 @@ import ListenerContext from "./ListenerContext";
 function Logout({setListener}) {
 
     const listener = useContext(ListenerContext)
-    console.log(listener)
 
     function handleLogout(e) {
         e.preventDefault();
-        
+
         fetch('logout', {
             method: 'DELETE',
             headers: {
