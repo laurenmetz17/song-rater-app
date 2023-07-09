@@ -20,10 +20,15 @@ function Logout({setListener}) {
         .then(() => {
             setListener(null)
         })
+
+        //window.location.pathname = "/"
     }
 
     return (
-        <button onClick={handleLogout}>Logout</button>
+        <div>
+            <h1>See you later!</h1>
+            <button onClick={handleLogout}>Logout</button>
+        </div>
     )
 
 

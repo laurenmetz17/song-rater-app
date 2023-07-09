@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import {React, useState, useEffect, createContext, useContext, Switch} from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import {Routes, Route } from "react-router-dom";
 import Login from './Login';
 import Logout from './Logout';
 import ListenerSongs from './ListenerSongs';
@@ -9,6 +9,7 @@ import Songs from './Songs';
 import Create from './Create';
 import ListenerContext from './ListenerContext';
 import NavBar from './NavBar';
+import Home from './Home';
 import "./styles.css"
 
 function App() {
@@ -44,9 +45,10 @@ function App() {
   },[])
 
   let currentPage
+  
   switch (window.location.pathname) {
     case "/":
-      currentPage = <Songs songs={songs} ></Songs>
+      currentPage = <Home/>
       break
     case "/songs":
       currentPage = <Songs songs={songs} ></Songs>
@@ -56,13 +58,30 @@ function App() {
       break
     case "/login":
       currentPage = <Login setListener={setListener}></Login>
-    break
+      break
+    case "/logout":
+      currentPage = <Logout setListener={setListener}></Logout>
+      break
   }
+  
  
   return (
     <div className='App'>
-      <NavBar/>
-      {currentPage}
+      <ListenerContext.Provider value={listener}>
+        <NavBar/>
+        {currentPage}
+      </ListenerContext.Provider> 
+      {/*
+      <div className='container'>
+        <Routes>
+            <Route path="/" element={<Home/>}/>
+            <Route path="/songs" element={<Songs songs={songs} ></Songs>}/>
+            <Route path="/listeners" element={<ListenerSongs songs={songs}></ListenerSongs>}/>
+            <Route path="/login" element={<Login setListener={setListener}></Login>}/>
+        </Routes>
+      </div>
+  */}
+      
     </div>
 
     /*
