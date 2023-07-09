@@ -1,10 +1,10 @@
 import {React, useState, useEffect} from 'react';
 import SongCard from './SongCard';
 
-function Songs({songs}) {
+function Songs({songs, listeners}) {
 
     const songItems = songs.map(song => {
-        return <SongCard key={song.title} song={song} />
+        return <SongCard key={song.title} song={song} listeners={listeners} />
     })
 
     

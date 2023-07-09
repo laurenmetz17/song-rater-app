@@ -16,6 +16,7 @@ function App() {
 
   const [listener, setListener] = useState(null)
   const [songs, setSongs] = useState([])
+  const [listeners, setListeners] = useState([])
 
   useEffect(() => {
     fetch("/songs")
@@ -25,7 +26,14 @@ function App() {
     })
   },[])
 
-  
+  useEffect(() => {
+    fetch("/listeners")
+    .then(resp => resp.json())
+    .then(data => {
+      setListeners(data)
+    })
+  },[])
+ 
   useEffect(() => {
     fetch("/me")
     .then(resp => {
@@ -51,13 +59,13 @@ function App() {
       currentPage = <Home/>
       break
     case "/songs":
-      currentPage = <Songs songs={songs} ></Songs>
+      currentPage = <Songs songs={songs} listeners={listeners} ></Songs>
       break
     case  "/listeners":
       currentPage = <ListenerSongs songs={songs}></ListenerSongs>
       break
     case "/login":
-      currentPage = <Login setListener={setListener}></Login>
+      currentPage = <Login setListener={setListener} setListeners={setListeners} listeners={listeners}></Login>
       break
     case "/logout":
       currentPage = <Logout setListener={setListener}></Logout>

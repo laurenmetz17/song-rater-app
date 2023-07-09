@@ -2,11 +2,12 @@ import { React, useState, useContext } from "react"
 import ListenerContext from "./ListenerContext"
 
 
-function RatingCard({rating, song, setRatings}) {
+function RatingCard({rating, song, setRatings, listeners}) {
     const star = "⭐"
     let stars = ""
     
     const listener = useContext(ListenerContext)
+    const ratingListener = listeners.filter(listenerItem => listenerItem.id == rating.listener_id)[0].name
 
     for(let i=0; i< rating.review ; i++){
         stars += star
@@ -87,6 +88,7 @@ function RatingCard({rating, song, setRatings}) {
     
     return(
         <div id="rating">
+            <h3>{ratingListener} :</h3>
             <h5>{stars}</h5>
             <h5>{rating.comment}</h5>
             <p>Change Comment :</p>

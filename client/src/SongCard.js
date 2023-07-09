@@ -3,7 +3,7 @@ import ListenerContext from './ListenerContext';
 import RatingCard from './RatingCard';
 import logo from './logo.svg';
 
-function SongCard({song}) {
+function SongCard({song, listeners}) {
     
     const listener = useContext(ListenerContext)
     const [showForm, setShowForm] = useState(false)
@@ -29,11 +29,9 @@ function SongCard({song}) {
         cover = songData.artworkUrl100
         const image = <img src={cover} alt="album cover"></img>
         console.log(cover)
-        console.log(image)
-        
-        //const songTarget = data.results.filter(song => song.artistName.toLowerCase() === song.artist.toLowerCase());  
+        console.log(image) 
             //this is sensitive to spaces in the song title and artist 
-            //of the song is not within the first 50 entries also doesnt work 
+            //if the song is not within the first 50 entries also doesnt work 
     })
 
     
@@ -70,7 +68,7 @@ function SongCard({song}) {
     }
 
     const ratingItems = ratings.map(rating => (
-        <RatingCard key={rating.id} rating={rating} song={song} ratings={ratings} setRatings={setRatings}></RatingCard>
+        <RatingCard key={rating.id} rating={rating} song={song} ratings={ratings} setRatings={setRatings} listeners={listeners}></RatingCard>
     ))
     
     return(

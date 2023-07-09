@@ -2,7 +2,7 @@ import {React, useState, useEffect, useContext} from 'react';
 import { resolvePath } from 'react-router-dom';
 import ListenerContext from './ListenerContext';
 
-function Login({setListener}) {
+function Login({setListener,setListeners, listeners}) {
 
     const listener = useContext(ListenerContext)
     const [logError,setLogError] = useState(false)
@@ -37,6 +37,7 @@ function Login({setListener}) {
                 resp.json()
                 .then((newListener) => {
                     console.log(newListener)
+                    setListeners([...listeners, newListener])
                 }) 
             }
             else {
