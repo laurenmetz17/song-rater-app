@@ -1,9 +1,6 @@
 import { Link, useMatch, useResolvedPath} from 'react-router-dom';
 import {React, useContext} from 'react'
 //import {useHistory} from 'react'
-import ListenerSongs from './ListenerSongs';
-import Login from './Login';
-import Songs from './Songs';
 import ListenerContext from './ListenerContext';
 
 
@@ -12,8 +9,6 @@ function NavBar() {
 
     const path = window.location.pathname
     const listener = useContext(ListenerContext)
-    console.log(listener)
-
 
     return(
         <nav className="nav">

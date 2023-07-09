@@ -62,6 +62,9 @@ function App() {
     case "/logout":
       currentPage = <Logout setListener={setListener}></Logout>
       break
+    case "/songs/new":
+      currentPage = <Create songs={songs} setSongs={setSongs}></Create>
+      break
   }
   
  

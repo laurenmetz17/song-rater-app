@@ -20,8 +20,6 @@ function Logout({setListener}) {
         .then(() => {
             setListener(null)
         })
-
-        //window.location.pathname = "/"
     }
 
     return (
