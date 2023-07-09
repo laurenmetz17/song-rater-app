@@ -1,6 +1,7 @@
 import {React, useState, useEffect, useContext} from 'react';
 import ListenerContext from './ListenerContext';
 import RatingCard from './RatingCard';
+import logo from './logo.svg';
 
 function SongCard({song}) {
     
@@ -17,18 +18,22 @@ function SongCard({song}) {
         song_id: song.id,
         listener_id: null
     })
-    console.log(song)
 
-    let albumCover
+    let cover
     fetch(`https://itunes.apple.com/search?media=music&entity=song&term=${song.title}`)
     .then(resp => resp.json())
     .then(data => {
-        console.log(data)
+        
+        const songsMatch = data.results.filter(songItem => songItem.artistName == song.artist);
+        const songData = songsMatch[0]
+        cover = songData.artworkUrl100
+        const image = <img src={cover} alt="album cover"></img>
+        console.log(cover)
+        console.log(image)
+        
         //const songTarget = data.results.filter(song => song.artistName.toLowerCase() === song.artist.toLowerCase());  
             //this is sensitive to spaces in the song title and artist 
             //of the song is not within the first 50 entries also doesnt work 
-        //albumCover =songTarget[0].artworkUrl100;
-        console.log(albumCover)
     })
 
     
@@ -54,8 +59,6 @@ function SongCard({song}) {
             .then((newRating) => {
                 const newRatings = [...ratings, newRating]
                 setRatings(newRatings)
-
-                //some sort of state update here for songs and listener to show  listener song
             });
         }
         else {
@@ -74,7 +77,7 @@ function SongCard({song}) {
         <div className='song-card'>
             <h2>{song.title}</h2>
             <h5>by {song.artist}</h5>
-            <img src={albumCover} alt="album cover"></img>
+            <img src={cover} alt="album cover" ></img>
             <p>Average Listener Rating: {ratingAverage > 0 ? ratingAverage: 0}</p>
             <h5 style={{color:"red"}}>{ratingError ? "You've already rated this song": null}</h5>
             {showForm? (
