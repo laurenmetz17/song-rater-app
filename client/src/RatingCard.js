@@ -91,7 +91,6 @@ function RatingCard({rating, song, setRatings, listeners}) {
             <h3>{ratingListener} :</h3>
             <h5>{stars}</h5>
             <h5>{rating.comment}</h5>
-            <p>Change Comment :</p>
             <form id='update_rating' onSubmit={updateRating}>
                 <input name="comment" type="text" onChange={updateComment}></input>
                 <input type="submit" value="Change Comment"></input>

@@ -52,7 +52,6 @@ function Login({setListener,setListeners, listeners}) {
         e.target.children[3].value = ""
         e.target.children[5].value = ""
         e.target.children[7].value = ""
-        e.target.children[9].value = ""
     }
 
     function updateLogin(e) {
@@ -114,8 +113,6 @@ function Login({setListener,setListeners, listeners}) {
             <form id="sign up" onSubmit={createListener}>
                 <label>Name: </label>
                 <input type="text" name="name" onChange={updateSignup}></input>
-                <label>  Profile Picture: </label>
-                <input type="text" name="profile_pic" onChange={updateSignup}></input>
                 <label>Username: </label>
                 <input type="text" name="username" onChange={updateSignup}></input>
                 <label>Password:</label>

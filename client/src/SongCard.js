@@ -28,8 +28,8 @@ function SongCard({song, listeners}) {
         const songData = songsMatch[0]
         cover = songData.artworkUrl100
         const image = <img src={cover} alt="album cover"></img>
-        console.log(cover)
-        console.log(image) 
+        //console.log(cover)
+        //console.log(image) 
             //this is sensitive to spaces in the song title and artist 
             //if the song is not within the first 50 entries also doesnt work 
     })
