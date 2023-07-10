@@ -1,6 +1,5 @@
 import { Link, useMatch, useResolvedPath} from 'react-router-dom';
 import {React, useContext} from 'react'
-//import {useHistory} from 'react'
 import ListenerContext from './ListenerContext';
 
 
@@ -13,6 +12,7 @@ function NavBar() {
     return(
         <nav className="nav">
             <a href="/" className="site-name">Song Rater ⭐</a>
+            {listener ? <p>{`Welcome ${listener.name}!`}</p>: null}
             <ul>
                 <CustomLink href= "/songs">Songs</CustomLink>
                 <CustomLink href= "/listeners">Listener Songs</CustomLink>

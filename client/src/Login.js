@@ -1,5 +1,4 @@
-import {React, useState, useEffect, useContext} from 'react';
-import { resolvePath } from 'react-router-dom';
+import {React, useState, useContext} from 'react';
 import ListenerContext from './ListenerContext';
 
 function Login({setListener,setListeners, listeners}) {
@@ -22,8 +21,7 @@ function Login({setListener,setListeners, listeners}) {
     })
 
     function createListener(e) {
-        e.preventDefault();
-        console.log(signupForm)       
+        e.preventDefault();      
         fetch('listeners', {
             method: 'POST',
             headers: {
@@ -33,10 +31,8 @@ function Login({setListener,setListeners, listeners}) {
         })
         .then(resp => {
             if (resp.ok) {
-                console.log(resp);
                 resp.json()
                 .then((newListener) => {
-                    console.log(newListener)
                     setListeners([...listeners, newListener])
                 }) 
             }

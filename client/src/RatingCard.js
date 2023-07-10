@@ -67,7 +67,6 @@ function RatingCard({rating, song, setRatings, listeners}) {
                 .then((newRating) => {
                     console.log(newRating)
                     const newRatings = song.ratings.map(rating => rating.id == newRating.id? newRating : rating) 
-                    console.log(newRatings)
                     setRatings(newRatings)
                 })
             }

@@ -1,5 +1,4 @@
-import {React, useState, useEffect} from 'react';
-import Songs from './Songs';
+import {React, useState} from 'react';
 
 function Create({songs, setSongs}) {
 

@@ -1,5 +1,4 @@
-import { useState, createContext } from "react";
-import App from "./App"
+import { createContext } from "react";
 
 const ListenerContext = createContext()
 

@@ -1,9 +1,8 @@
-import {React, useState, useEffect, useContext} from 'react';
+import {React, useContext} from 'react';
 import ListenerContext from './ListenerContext';
 import ListenerSongCard from './ListenerSongCard';
 
 function ListenerSongs() {
-
     const listener = useContext(ListenerContext)
     let songItems
 

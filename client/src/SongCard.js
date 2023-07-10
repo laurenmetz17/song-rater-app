@@ -1,7 +1,6 @@
-import {React, useState, useEffect, useContext} from 'react';
+import {React, useState, useContext} from 'react';
 import ListenerContext from './ListenerContext';
 import RatingCard from './RatingCard';
-import logo from './logo.svg';
 
 function SongCard({song, listeners}) {
     
@@ -43,7 +42,6 @@ function SongCard({song, listeners}) {
 
     function submitRating(e) {
         e.preventDefault()
-        console.log(ratingForm)
         setShowForm(false)
         if (!ratingIds.includes(listener.id)) {
             fetch(`/songs/${song.id}/ratings`, {
