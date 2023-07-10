@@ -1,10 +1,5 @@
 
-import { useContext } from "react";
-import ListenerContext from "./ListenerContext";
-
 function Logout({setListener}) {
-
-    const listener = useContext(ListenerContext)
 
     function handleLogout(e) {
         e.preventDefault();

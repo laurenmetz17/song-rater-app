@@ -1,9 +1,7 @@
-import {React, useState, useContext} from 'react';
-import ListenerContext from './ListenerContext';
+import {React, useState} from 'react';
 
 function Login({setListener,setListeners, listeners}) {
 
-    const listener = useContext(ListenerContext)
     const [logError,setLogError] = useState(false)
     const [signupError, setSignupError] = useState(false)
 
