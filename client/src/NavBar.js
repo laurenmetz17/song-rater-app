@@ -9,6 +9,8 @@ function NavBar() {
     const path = window.location.pathname
     const listener = useContext(ListenerContext)
 
+    /*
+
     return(
         <nav className="nav">
             <a href="/" className="site-name">Song Rater ⭐</a>
@@ -20,7 +22,8 @@ function NavBar() {
             </ul>
         </nav>
     )
-    /*
+    */
+    
     return(
         <nav className="nav">
             <Link to="/" class="site-name">Song Rater</Link>
@@ -31,19 +34,21 @@ function NavBar() {
             </ul>
         </nav>
     )
-    */
+    
 
 }
 
-function CustomLink({href, children, ...props}) {
+
+function CustomLink({to, children, ...props}) {
     const path = window.location.pathname
 
+    /*
     return (
         <li className={href===path ? "active": ""}>
             <a href={href} {...props}>{children}</a>
         </li>
     )
-    /*
+    */
 
     const resolvedPath = useResolvedPath(to)
     const isActive = useMatch({path: resolvedPath.pathname, end:true})
@@ -53,7 +58,7 @@ function CustomLink({href, children, ...props}) {
             <Link to={to} {...props}>{children}</Link>
         </li>
     )
-    */
+    
 }
 
 export default NavBar;

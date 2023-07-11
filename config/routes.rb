@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   delete '/logout', to: "sessions#destroy"
   get '/me', to: "listeners#show"
   post '/songs/new', to: "songs#create"
+  get '/ratings', to: "ratings#index"
 
   #route to create ratings through the song
   

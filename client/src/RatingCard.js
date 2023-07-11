@@ -8,6 +8,7 @@ function RatingCard({rating, song, setRatings, listeners}) {
     
     const listener = useContext(ListenerContext)
     const ratingListener = listeners.filter(listenerItem => listenerItem.id == rating.listener_id)[0].name
+    
 
     for(let i=0; i< rating.review ; i++){
         stars += star

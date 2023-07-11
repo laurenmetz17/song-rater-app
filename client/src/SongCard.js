@@ -11,6 +11,7 @@ function SongCard({song, listeners}) {
     const ratingAverage = (ratings.reduce((sum, rating) => sum = sum + rating.review, 0))/ratings.length
     const ratingIds = ratings.map(rating => rating.listener_id)
     const [ratingError, setRatingError] = useState(false)
+    const [cover, setCover] = useState("")
     const [ratingForm, setRatingForm] = useState({
         review: 1,
         comment: "",
@@ -18,16 +19,13 @@ function SongCard({song, listeners}) {
         listener_id: null
     })
 
-    let cover
     fetch(`https://itunes.apple.com/search?media=music&entity=song&term=${song.title}`)
     .then(resp => resp.json())
     .then(data => {
         
         const songsMatch = data.results.filter(songItem => songItem.artistName == song.artist);
         const songData = songsMatch[0]
-        cover = songData.artworkUrl100
-        const image = <img src={cover} alt="album cover"></img>
-        //console.log(cover)
+        setCover(songData.artworkUrl100)
         //console.log(image) 
             //this is sensitive to spaces in the song title and artist 
             //if the song is not within the first 50 entries also doesnt work 
@@ -64,6 +62,7 @@ function SongCard({song, listeners}) {
             }, "1500");
         }
     }
+    console.log(cover)
 
     const ratingItems = ratings.map(rating => (
         <RatingCard key={rating.id} rating={rating} song={song} ratings={ratings} setRatings={setRatings} listeners={listeners}></RatingCard>

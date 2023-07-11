@@ -9,6 +9,11 @@ class RatingsController < ApplicationController
         end
     end
 
+    def index
+        ratings = Rating.all
+        render json: ratings
+    end
+
     def update
         rating = Rating.find(params[:id])
         rating.update(comment: params[:comment])

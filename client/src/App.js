@@ -14,6 +14,8 @@ import "./styles.css"
 
 function App() {
 
+  //fix the attributes for the new routes, change the listeners state since name is now in rating
+
   const [listener, setListener] = useState(null)
   const [songs, setSongs] = useState([])
   const [listeners, setListeners] = useState([])
@@ -52,6 +54,7 @@ function App() {
     })
   },[])
 
+  /*
   let currentPage
   
   switch (window.location.pathname) {
@@ -74,24 +77,26 @@ function App() {
       currentPage = <Create songs={songs} setSongs={setSongs}></Create>
       break
   }
+  */
   
  
   return (
     <div className='App'>
       <ListenerContext.Provider value={listener}>
         <NavBar/>
-        {currentPage}
+        {/*{currentPage}*/}
+      
+      
+        <div className='container'>
+          <Routes>
+              <Route path="/" element={<Home/>}/>
+              <Route path="/songs" element={<Songs songs={songs} ></Songs>}/>
+              <Route path="/listeners" element={<ListenerSongs songs={songs}></ListenerSongs>}/>
+              <Route path="/login" element={<Login setListener={setListener}></Login>}/>
+          </Routes>
+        </div>
       </ListenerContext.Provider> 
-      {/*
-      <div className='container'>
-        <Routes>
-            <Route path="/" element={<Home/>}/>
-            <Route path="/songs" element={<Songs songs={songs} ></Songs>}/>
-            <Route path="/listeners" element={<ListenerSongs songs={songs}></ListenerSongs>}/>
-            <Route path="/login" element={<Login setListener={setListener}></Login>}/>
-        </Routes>
-      </div>
-  */}
+
       
     </div>
 
