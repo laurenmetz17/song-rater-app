@@ -93,6 +93,8 @@ function App() {
               <Route path="/songs" element={<Songs songs={songs} ></Songs>}/>
               <Route path="/listeners" element={<ListenerSongs songs={songs}></ListenerSongs>}/>
               <Route path="/login" element={<Login setListener={setListener}></Login>}/>
+              <Route path="/logout" element={<Logout setListener={setListener}></Logout>}/>
+              <Route path="/songs/new" element={<Create songs={songs} setSongs={setSongs}></Create>}/>
           </Routes>
         </div>
       </ListenerContext.Provider> 
