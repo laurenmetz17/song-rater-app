@@ -1,7 +1,6 @@
 import { React, useState, useContext } from "react"
 import ListenerContext from "./ListenerContext"
 
-//patch songs state instead of using ratings
 function RatingCard({rating, song, songs, setSongs}) {
     const star = "⭐"
     let stars = ""
@@ -69,8 +68,10 @@ function RatingCard({rating, song, songs, setSongs}) {
                 }).then(resp => resp.json())
                 .then((newRating) => {
                     console.log(newRating)
-                    const newRatings = song.ratings.map(rating => rating.id == newRating.id? newRating : rating) 
-                    //setRatings(newRatings)
+                    const newRatings = song.ratings.map(rating => rating.id == newRating.id? newRating : rating)
+                    song.ratings = newRatings 
+                    const newSongs = songs.map(songItem => songItem.id == rating.song_id? song : songItem)
+                    setSongs(newSongs)
                 })
             }
             else {
