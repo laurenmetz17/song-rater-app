@@ -16,21 +16,12 @@ function App() {
 
   const [listener, setListener] = useState(null)
   const [songs, setSongs] = useState([])
-  const [listeners, setListeners] = useState([])
 
   useEffect(() => {
     fetch("/songs")
     .then(resp => resp.json())
     .then(data => {
       setSongs(data)
-    })
-  },[])
-
-  useEffect(() => {
-    fetch("/listeners")
-    .then(resp => resp.json())
-    .then(data => {
-      setListeners(data)
     })
   },[])
  
@@ -59,7 +50,7 @@ function App() {
         <div className='container'>
           <Routes>
               <Route path="/" element={<Home/>}/>
-              <Route path="/songs" element={<Songs songs={songs} ></Songs>}/>
+              <Route path="/songs" element={<Songs songs={songs} setSongs={setSongs}></Songs>}/>
               <Route path="/listeners" element={<ListenerSongs songs={songs}></ListenerSongs>}/>
               <Route path="/login" element={<Login setListener={setListener}></Login>}/>
               <Route path="/logout" element={<Logout setListener={setListener}></Logout>}/>

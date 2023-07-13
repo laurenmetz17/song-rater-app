@@ -1,6 +1,6 @@
 import {React, useState} from 'react';
 
-function Login({setListener,setListeners, listeners}) {
+function Login({setListener}) {
 
     const [logError,setLogError] = useState(false)
     const [signupError, setSignupError] = useState(false)
@@ -31,7 +31,7 @@ function Login({setListener,setListeners, listeners}) {
             if (resp.ok) {
                 resp.json()
                 .then((newListener) => {
-                    setListeners([...listeners, newListener])
+                    console.log(newListener)
                 }) 
             }
             else {

@@ -1,10 +1,10 @@
 import {React} from 'react';
 import SongCard from './SongCard';
 
-function Songs({songs, listeners}) {
+function Songs({songs, setSongs}) {
 
     const songItems = songs.map(song => {
-        return <SongCard key={song.title} song={song} listeners={listeners} />
+        return <SongCard key={song.title} song={song} songs={songs} setSongs={setSongs} />
     })
 
     

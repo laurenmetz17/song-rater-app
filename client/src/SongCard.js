@@ -2,11 +2,11 @@ import {React, useState, useContext} from 'react';
 import ListenerContext from './ListenerContext';
 import RatingCard from './RatingCard';
 
-function SongCard({song, listeners}) {
+function SongCard({song, songs, setSongs}) {
     
     const listener = useContext(ListenerContext)
     const [showForm, setShowForm] = useState(false)
-    const [ratings, setRatings] = useState(song.ratings)
+    const ratings = song.ratings
     const [showRatings, setShowRatings] = useState(false)
     const ratingAverage = (ratings.reduce((sum, rating) => sum = sum + rating.review, 0))/ratings.length
     const ratingIds = ratings.map(rating => rating.listener_id)
@@ -52,7 +52,13 @@ function SongCard({song, listeners}) {
             .then(resp => resp.json())
             .then((newRating) => {
                 const newRatings = [...ratings, newRating]
-                setRatings(newRatings)
+                song.ratings = newRatings
+                console.log(song)
+                setSongs([...songs, song])
+                //set song.ratings to new ratings
+                //
+                //set listener songs to include song id
+                //setRatings(newRatings)
             });
         }
         else {
@@ -65,7 +71,7 @@ function SongCard({song, listeners}) {
     console.log(song)
 
     const ratingItems = ratings.map(rating => (
-        <RatingCard key={rating.id} rating={rating} song={song} ratings={ratings} setRatings={setRatings} listeners={listeners}></RatingCard>
+        <RatingCard key={rating.id} rating={rating} song={song} ></RatingCard>
     ))
     
     return(
