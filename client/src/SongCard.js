@@ -62,7 +62,7 @@ function SongCard({song, listeners}) {
             }, "1500");
         }
     }
-    console.log(cover)
+    console.log(song)
 
     const ratingItems = ratings.map(rating => (
         <RatingCard key={rating.id} rating={rating} song={song} ratings={ratings} setRatings={setRatings} listeners={listeners}></RatingCard>

@@ -1,8 +1,9 @@
 import { React, useState, useContext } from "react"
 import ListenerContext from "./ListenerContext"
 
+//need to update songs object instead of using ratings state
 
-function RatingCard({rating, song, setRatings, listeners}) {
+function RatingCard({rating, song, setRatings, songs, setSongs}) {
     const star = "⭐"
     let stars = ""
     
