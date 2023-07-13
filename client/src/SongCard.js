@@ -26,9 +26,6 @@ function SongCard({song, songs, setSongs}) {
         const songsMatch = data.results.filter(songItem => songItem.artistName == song.artist);
         const songData = songsMatch[0]
         setCover(songData.artworkUrl100)
-        //console.log(image) 
-            //this is sensitive to spaces in the song title and artist 
-            //if the song is not within the first 50 entries also doesnt work 
     })
 
     
@@ -53,12 +50,10 @@ function SongCard({song, songs, setSongs}) {
             .then((newRating) => {
                 const newRatings = [...ratings, newRating]
                 song.ratings = newRatings
-                console.log(song)
-                setSongs([...songs, song])
-                //set song.ratings to new ratings
-                //
+                const newSongs = songs.map(songItem => songItem.id == newRating.song_id? song : songItem)
+                setSongs(newSongs)
+                listener.songs = [...listener.songs, song]
                 //set listener songs to include song id
-                //setRatings(newRatings)
             });
         }
         else {

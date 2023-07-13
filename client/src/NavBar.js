@@ -4,7 +4,6 @@ import ListenerContext from './ListenerContext';
 
 function NavBar() {
 
-    const path = window.location.pathname
     const listener = useContext(ListenerContext)
 
     return(
@@ -22,7 +21,7 @@ function NavBar() {
 
 
 function CustomLink({to, children, ...props}) {
-    const path = window.location.pathname
+
     const resolvedPath = useResolvedPath(to)
     const isActive = useMatch({path: resolvedPath.pathname, end:true})
 
