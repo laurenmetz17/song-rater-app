@@ -53,7 +53,6 @@ function SongCard({song, songs, setSongs}) {
                 const newSongs = songs.map(songItem => songItem.id == newRating.song_id? song : songItem)
                 setSongs(newSongs)
                 listener.songs = [...listener.songs, song]
-                //set listener songs to include song id
             });
         }
         else {
