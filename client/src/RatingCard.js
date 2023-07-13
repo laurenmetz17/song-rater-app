@@ -1,9 +1,8 @@
 import { React, useState, useContext } from "react"
 import ListenerContext from "./ListenerContext"
 
-//need to update songs object instead of using ratings state
-
-function RatingCard({rating, song, setRatings, songs, setSongs}) {
+//patch songs state instead of using ratings
+function RatingCard({rating, song, songs, setSongs}) {
     const star = "⭐"
     let stars = ""
     
@@ -30,7 +29,10 @@ function RatingCard({rating, song, setRatings, songs, setSongs}) {
                 .then(resp => console.log(resp))
                 .then(() => {
                     const newRatings = song.ratings.filter(item => item.id != rating.id)
-                    setRatings(newRatings)
+                    song.ratings = newRatings
+                    const newSongs = songs.map(songItem => songItem.id == rating.song_id? song : songItem)
+                    setSongs(newSongs)
+                    listener.songs = listener.songs.filter(song => song.id != rating.song_id)
                 })
             }
             else {
@@ -68,7 +70,7 @@ function RatingCard({rating, song, setRatings, songs, setSongs}) {
                 .then((newRating) => {
                     console.log(newRating)
                     const newRatings = song.ratings.map(rating => rating.id == newRating.id? newRating : rating) 
-                    setRatings(newRatings)
+                    //setRatings(newRatings)
                 })
             }
             else {

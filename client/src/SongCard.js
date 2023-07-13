@@ -65,7 +65,7 @@ function SongCard({song, songs, setSongs}) {
     console.log(song)
 
     const ratingItems = ratings.map(rating => (
-        <RatingCard key={rating.id} rating={rating} song={song} ></RatingCard>
+        <RatingCard key={rating.id} rating={rating} song={song} songs={songs} setSongs={setSongs}></RatingCard>
     ))
     
     return(
