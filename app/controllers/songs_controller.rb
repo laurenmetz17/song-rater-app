@@ -2,12 +2,12 @@ class SongsController < ApplicationController
     #consider adding rescue from at top  for active record not found 
     def index
         songs = Song.all
-        render json: songs, include: :ratings
+        render json: songs
     end
 
     def show
         song = Song.find(params[:id])
-        render json: song, include: [:ratings, :listeners]
+        render json: song
     end
 
     def destroy 
@@ -20,7 +20,7 @@ class SongsController < ApplicationController
     def create
         song = Song.create(song_params)
         if song.valid?
-            render json: song, include: [:ratings, :listeners], status: :created
+            render json: song, status: :created
         else
             render json: {errors: song.errors.full_messages}, status: :unprocessable_entity
         end

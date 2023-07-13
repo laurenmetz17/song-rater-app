@@ -1,13 +1,13 @@
 class ListenersController < ApplicationController
     def index
         listeners = Listener.all 
-        render json: listeners, include: [:ratings, :songs]
+        render json: listeners
     end
 
     def show 
         listener = Listener.find_by(id: session[:listener_id])
         if listener
-            render json: listener, include: [:ratings, :songs]
+            render json: listener
         else
             render json: {error:"unathorized"}, status: :unathorized
         end
@@ -31,6 +31,6 @@ class ListenersController < ApplicationController
     private
 
     def listener_params
-        params.permit(:name, :username, :password, :password_confirmation, :proifle_pic)
+        params.permit(:name, :username, :password, :password_confirmation)
     end
 end
