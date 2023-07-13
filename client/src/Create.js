@@ -23,7 +23,6 @@ function Create({songs, setSongs}) {
             })
             .then(resp => resp.json())
             .then((newSong) => {
-                console.log(newSong)
                 setSongs([...songs, newSong]);
             });
 
