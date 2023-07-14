@@ -9,8 +9,6 @@ Rails.application.routes.draw do
   get '/me', to: "listeners#show"
   post '/songs/new', to: "songs#create"
   get '/ratings', to: "ratings#index"
-
-  #route to create ratings through the song
   
   # Routing logic: fallback requests for React Router.
   # Leave this here to help deploy your app later!

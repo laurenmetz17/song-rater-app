@@ -35,11 +35,11 @@ function App() {
         }) 
       }
       else {
-        throw new Error(`HTTP error, status = ${resp.status}`);
+        //throw new Error(`HTTP error, status = ${resp.status}`);
       }
     })
     .catch(error => {
-      console.error(error);
+      ;
     })
   },[])
  
