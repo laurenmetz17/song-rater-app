@@ -11,8 +11,8 @@ function NavBar() {
             <Link to="/" class="site-name">Song Rater ⭐</Link>
             {listener ? <p>{`Welcome ${listener.name}!`}</p>: null}
             <ul>
-                <CustomLink to= "/songs">Songs</CustomLink>
-                <CustomLink to= "/listeners">Listener Songs</CustomLink>
+                <CustomLink to= "/songsPage">Songs</CustomLink>
+                <CustomLink to= "/listenersPage">Listener Songs</CustomLink>
                 {listener ? <CustomLink to= "/logout">Logout</CustomLink> :<CustomLink to= "/login">Login or Signup</CustomLink>}
             </ul>
         </nav>

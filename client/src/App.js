@@ -35,11 +35,11 @@ function App() {
         }) 
       }
       else {
-        //throw new Error(`HTTP error, status = ${resp.status}`);
+        throw new Error(`HTTP error, status = ${resp.status}`);
       }
     })
     .catch(error => {
-      ;
+      console.error(error);
     })
   },[])
  
@@ -50,8 +50,8 @@ function App() {
         <div className='container'>
           <Routes>
               <Route path="/" element={<Home/>}/>
-              <Route path="/songs" element={<Songs songs={songs} setSongs={setSongs}></Songs>}/>
-              <Route path="/listeners" element={<ListenerSongs songs={songs}></ListenerSongs>}/>
+              <Route path="/songsPage" element={<Songs songs={songs} setSongs={setSongs}></Songs>}/>
+              <Route path="/listenersPage" element={<ListenerSongs songs={songs}></ListenerSongs>}/>
               <Route path="/login" element={<Login setListener={setListener}></Login>}/>
               <Route path="/logout" element={<Logout setListener={setListener}></Logout>}/>
               <Route path="/songs/new" element={<Create songs={songs} setSongs={setSongs}></Create>}/>

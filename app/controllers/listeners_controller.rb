@@ -9,7 +9,7 @@ class ListenersController < ApplicationController
         if listener
             render json: listener
         else
-            render json: {error:"unauthorized"}, status: :unauthorized
+            render json: {error:"unathorized"}, status: :unathorized
         end
     end
 
