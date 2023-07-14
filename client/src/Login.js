@@ -31,16 +31,16 @@ function Login({setListener}) {
             if (resp.ok) {
                 resp.json()
                 .then((newListener) => {
-                    console.log(newListener)
+                    
                 }) 
             }
             else {
                 setSignupError(true)
-                throw new Error(`HTTP error, status = ${resp.status}`);
+                //throw new Error(`HTTP error, status = ${resp.status}`);
             }
         })
         .catch(error => {
-            console.error(error);
+            //console.error(error);
         })
         e.target.children[1].value = ""
         e.target.children[3].value = ""
@@ -72,7 +72,6 @@ function Login({setListener}) {
         })
         .then(resp => {
             if (resp.ok) {
-                console.log(resp);
                 resp.json()
                 .then((listenerLog) => {
                     console.log(listenerLog)
@@ -81,11 +80,11 @@ function Login({setListener}) {
             }
             else {
                 setLogError(true)
-                throw new Error(`HTTP error, status = ${resp.status}`);
+                //throw new Error(`HTTP error, status = ${resp.status}`);
             }
         })
         .catch(error => {
-            console.error(error);
+            //console.error(error);
         })
         e.target.children[1].value = ""
         e.target.children[3].value = ""
