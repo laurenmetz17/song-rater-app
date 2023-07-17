@@ -1,5 +1,5 @@
 class SongsController < ApplicationController
-    #consider adding rescue from at top  for active record not found 
+    
     def index
         songs = Song.all
         render json: songs
@@ -11,7 +11,6 @@ class SongsController < ApplicationController
     end
 
     def destroy 
-        #add dependent destroy 
         song = find(params[:id])
         song.destroy
         head :no_content

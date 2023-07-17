@@ -12,7 +12,7 @@ function RatingCard({rating, song, songs, setSongs}) {
         stars += star
     }
     const [editError, setEditError] = useState(false)
-    const [commentChange, setCommentChange] = useState("")
+    const [commentChange, setCommentChange] = useState(rating.comment)
 
     function handleDelete(e) {
         e.preventDefault()
@@ -95,7 +95,7 @@ function RatingCard({rating, song, songs, setSongs}) {
             <h5>{stars}</h5>
             <h5>{rating.comment}</h5>
             <form id='update_rating' onSubmit={updateRating}>
-                <input name="comment" type="text" onChange={updateComment}></input>
+                <input name="comment" type="text" value={commentChange} onChange={updateComment}></input>
                 <input type="submit" value="Change Comment"></input>
             </form>
             <button id="delete" onClick={handleDelete}>X</button>
