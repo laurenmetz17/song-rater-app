@@ -39,6 +39,7 @@ function SongCard({song, songs, setSongs}) {
 
     function submitRating(e) {
         e.preventDefault()
+        setRatingForm({...ratingForm, "comment": ""})
         setShowForm(false)
         fetch(`/songs/${song.id}/ratings`, {
             method: 'POST',
