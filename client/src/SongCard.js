@@ -1,10 +1,12 @@
 import {React, useState, useContext} from 'react';
 import ListenerContext from './ListenerContext';
 import RatingCard from './RatingCard';
+import {useNavigate} from 'react-router-dom';
 
 function SongCard({song, songs, setSongs}) {
     
     const listener = useContext(ListenerContext)
+    const navigate = useNavigate()
     const [showForm, setShowForm] = useState(false)
     const ratings = song.ratings
     const [showRatings, setShowRatings] = useState(false)
@@ -69,19 +71,11 @@ function SongCard({song, songs, setSongs}) {
     const ratingItems = ratings.map(rating => (
         <RatingCard key={rating.id} rating={rating} song={song} songs={songs} setSongs={setSongs}></RatingCard>
     ))
-    
-    return(
-        <div className='song-card'>
-            <div className='left'>
-                <h2>{song.title}</h2>
-                <h5>by {song.artist}</h5>
-                <img src={cover} alt="album cover" ></img>
-            </div>
-            <div className='right'>
-                <p>Average Listener Rating: {ratingAverage > 0 ? ratingAverage: 0}</p>
-                <h5 style={{color:"red"}}>{ratingError ? "You've already rated this song": null}</h5>
-                {showForm? (
-                    <form id="make_rating" onSubmit={submitRating}>
+
+    function formDisplay() {
+
+        return (
+            <form id="make_rating" onSubmit={submitRating}>
                     <select name="review" type="number" onChange={updateRating}>
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -93,13 +87,34 @@ function SongCard({song, songs, setSongs}) {
                     <input name="comment" type="text" onChange={updateRating}/>
                     <input name="submit" type="submit"/>
                 </form>
-                ): <button onClick={() => {listener && !ratingIds.includes(listener.id)? setShowForm(true): 
-                    setRatingError(true)
-                    setTimeout(() => {
-                        setRatingError(false);
-                    }, "1500");}}>
-                        {listener ? "Rate Me!" : "Log In to Rate Me!"}
-                    </button>}
+        )
+    }
+
+    function buttonDisplay() {
+        if (!listener) {
+            return <button onClick={() => {navigate("/login")}}>Login to Rate Me!</button>
+        }
+        else {
+            if (!ratingIds.includes(listener.id)) {
+                return <button onClick={() => {setShowForm(true)}}>Rate Me!</button>
+            }
+            else {
+                return <button>You've already rated this!</button>
+            }
+        }
+    }
+    
+    return(
+        <div className='song-card'>
+            <div className='left'>
+                <h2>{song.title}</h2>
+                <h5>by {song.artist}</h5>
+                <img src={cover} alt="album cover" ></img>
+            </div>
+            <div className='right'>
+                <p>Average Listener Rating: {ratingAverage > 0 ? ratingAverage: 0}</p>
+                <h5 style={{color:"red"}}>{ratingError ? "You've already rated this song": null}</h5>
+                {showForm ? formDisplay(): buttonDisplay()}
                 {showRatings ? (
                     <div>
                         <button onClick={() => setShowRatings(false)}>Hide Ratings</button>

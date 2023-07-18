@@ -33,8 +33,4 @@ class RatingsController < ApplicationController
     def rating_params
         params.permit(:song_id, :listener_id, :review, :comment)
     end
-
-    def authorize
-        return render json: { error: "Not authorized" }, status: :unauthorized unless session.include? :listener_id
-    end
 end
