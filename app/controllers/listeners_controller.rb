@@ -1,4 +1,7 @@
 class ListenersController < ApplicationController
+
+    skip_before_action :authorize, only: [:create]
+    
     def index
         listeners = Listener.all 
         render json: listeners

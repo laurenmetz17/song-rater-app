@@ -1,4 +1,6 @@
 class SongsController < ApplicationController
+
+    skip_before_action :authorize, only: [:index]
     
     def index
         songs = Song.all

@@ -1,5 +1,5 @@
+
 class RatingsController < ApplicationController
-    before_action :authorize
 
     def create
         song = Song.find(params[:song_id])
@@ -17,14 +17,13 @@ class RatingsController < ApplicationController
     end
 
     def update
-        #current user.ratings.find
-        rating = Rating.find(params[:id])
+        rating = current_listener.ratings.find_by(id: params[:id])
         rating.update(comment: params[:comment])
         render json: rating
     end
 
     def destroy
-        rating = Rating.find(params[:id])
+        rating = current_listener.ratings.find_by(id: params[:id])
         rating.destroy
         head :no_content
     end

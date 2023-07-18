@@ -35,6 +35,9 @@ function SongCard({song, songs, setSongs}) {
         setRatingForm({...ratingForm, [target] : e.target.value, "listener_id": listener.id})
     }
 
+    //dont let them see rate form if already rated
+    //preload comment in comment field and only show i
+
     function submitRating(e) {
         e.preventDefault()
         setShowForm(false)
@@ -90,7 +93,13 @@ function SongCard({song, songs, setSongs}) {
                     <input name="comment" type="text" onChange={updateRating}/>
                     <input name="submit" type="submit"/>
                 </form>
-                ): <button onClick={() => {listener? setShowForm(true): setShowForm(false)}}>{listener ? "Rate Me!" : "Log In to Rate Me!"}</button>}
+                ): <button onClick={() => {listener && !ratingIds.includes(listener.id)? setShowForm(true): 
+                    setRatingError(true)
+                    setTimeout(() => {
+                        setRatingError(false);
+                    }, "1500");}}>
+                        {listener ? "Rate Me!" : "Log In to Rate Me!"}
+                    </button>}
                 {showRatings ? (
                     <div>
                         <button onClick={() => setShowRatings(false)}>Hide Ratings</button>
