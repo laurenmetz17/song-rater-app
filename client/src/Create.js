@@ -2,32 +2,69 @@ import {React, useState} from 'react';
 
 function Create({songs, setSongs}) {
 
+    //validation errors
+    const [songError,setSongError] = useState(false)
     const [songForm, setSongForm] = useState({
         title: "",
-        artist: ""
+        artist: "",
+        art: ""
     })
 
     function updateSong(e) {
+        setSongError(false)
         const target = e.target.name
         setSongForm({...songForm, [target] : e.target.value})
     }
 
-    function createSong(e) {
-        e.preventDefault();       
-        fetch('', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(songForm),
-            })
-            .then(resp => resp.json())
-            .then((newSong) => {
-                setSongs([...songs, newSong]);
-            });
+    function setArt(e) {
+        fetch(`https://itunes.apple.com/search?media=music&entity=song&term=${songForm.title}`)
+        .then(resp => {
+            if (resp.ok) {
+                console.log(resp)
+                resp.json()
+                .then(data => {
+        
+                    const songsMatch = data.results.filter(songItem => songItem.artistName == songForm.artist);
+                    const songData = songsMatch[0]
+                    if (songData) {
+                        setSongForm({...songForm, "art" : songData.artworkUrl100})
+                        fetch('', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(songForm),
+                            })
+                            .then(resp => {
+                                if (resp.ok) {
+                                    resp.json()
+                                    .then((newSong) => {
+                                        setSongs([...songs, newSong]);
+                                    })
+                                }
+                                else {
+                                    setSongError(true)
+                                    console.log(resp)
+                                }
+                            });
+                    }
+                    else {
+                        setSongError(true)
+    
+                    } 
+                    e.target.children[1].value = ""
+                    e.target.children[3].value = ""   
+                })
+            }
+        })
+    }
 
-            e.target.children[1].value = ""
-            e.target.children[3].value = ""
+
+    function createSong(e) {
+        e.preventDefault();
+        console.log(songForm)
+        setArt(e)
+        setSongForm({"title": "", "artist": "", "art": ""})
 
     }
 
@@ -41,6 +78,7 @@ function Create({songs, setSongs}) {
                 <input type="text" name="artist" onChange={updateSong}></input>
                 <input type="submit" value="Create Song"></input> 
             </form>
+            {songError ? <p style={{color: "red"}}>Invalid Song Info</p> : null} 
         </div>
     )
 

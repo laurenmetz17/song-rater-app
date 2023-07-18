@@ -22,13 +22,23 @@ function SongCard({song, songs, setSongs}) {
     })
 
     fetch(`https://itunes.apple.com/search?media=music&entity=song&term=${song.title}`)
-    .then(resp => resp.json())
-    .then(data => {
-        
-        const songsMatch = data.results.filter(songItem => songItem.artistName == song.artist);
-        const songData = songsMatch[0]
-        setCover(songData.artworkUrl100)
-    }) 
+    .then(resp => {
+        if (resp.ok) {
+            console.log(resp)
+            resp.json()
+            .then(data => {
+                console.log(data)
+                const songsMatch = data.results.filter(songItem => songItem.artistName == song.artist);
+                const songData = songsMatch[0]
+                if (songData) {
+                    setCover(songData.artworkUrl100)
+                }
+            }) 
+        }
+        else {
+            console.log(resp)
+        }
+    })
     
     function updateRating(e) {
         const target = e.target.name
