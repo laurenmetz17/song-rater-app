@@ -7,7 +7,7 @@ class RatingsController < ApplicationController
         if rating.valid?
             render json: rating, status: :created
         else
-            render json: {errors: rating.errors.full_messages}
+            render json: {errors: rating.errors.full_messages}, status: :unprocessable_entity
         end
     end
 

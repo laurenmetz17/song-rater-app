@@ -8,7 +8,7 @@ function NavBar() {
 
     return(
         <nav className="nav">
-            <Link to="/" class="site-name">Song Rater ⭐</Link>
+            <Link to="/" className="site-name">Song Rater ⭐</Link>
             {listener ? <p>{`Welcome ${listener.name}!`}</p>: null}
             <ul>
                 <CustomLink to= "/songsPage">Songs</CustomLink>

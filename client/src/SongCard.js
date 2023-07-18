@@ -37,35 +37,34 @@ function SongCard({song, songs, setSongs}) {
         setRatingForm({...ratingForm, [target] : e.target.value, "listener_id": listener.id})
     }
 
-    //dont let them see rate form if already rated
-    //preload comment in comment field and only show i
-
     function submitRating(e) {
         e.preventDefault()
         setShowForm(false)
-        if (!ratingIds.includes(listener.id)) {
-            fetch(`/songs/${song.id}/ratings`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(ratingForm),
-            })
-            .then(resp => resp.json())
-            .then((newRating) => {
-                const newRatings = [...ratings, newRating]
-                song.ratings = newRatings
-                const newSongs = songs.map(songItem => songItem.id == newRating.song_id? song : songItem)
-                setSongs(newSongs)
-                listener.songs = [...listener.songs, song]
-            });
-        }
-        else {
-            setRatingError(true)
-            setTimeout(() => {
+        fetch(`/songs/${song.id}/ratings`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(ratingForm),
+        })
+        .then(resp => {
+            if (resp.ok) {
+                resp.json()
+                .then((newRating) => {
+                    const newRatings = [...ratings, newRating]
+                    song.ratings = newRatings
+                    const newSongs = songs.map(songItem => songItem.id == newRating.song_id? song : songItem)
+                    setSongs(newSongs)
+                    listener.songs = [...listener.songs, song]
+                })
+            }
+            else {
+                setRatingError(true)
+                setTimeout(() => {
                 setRatingError(false);
-            }, "1500");
-        }
+                }, "1500");
+            }
+        })
     }
 
     const ratingItems = ratings.map(rating => (
@@ -113,7 +112,7 @@ function SongCard({song, songs, setSongs}) {
             </div>
             <div className='right'>
                 <p>Average Listener Rating: {ratingAverage > 0 ? ratingAverage: 0}</p>
-                <h5 style={{color:"red"}}>{ratingError ? "You've already rated this song": null}</h5>
+                <h5 style={{color:"red"}}>{ratingError ? "Rating incomplete": null}</h5>
                 {showForm ? formDisplay(): buttonDisplay()}
                 {showRatings ? (
                     <div>

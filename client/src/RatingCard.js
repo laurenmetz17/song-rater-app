@@ -25,7 +25,7 @@ function RatingCard({rating, song, songs, setSongs}) {
                     },
                     body: JSON.stringify(null), 
                 })
-                .then(resp => console.log(resp))
+                .then(resp => resp)
                 .then(() => {
                     const newRatings = song.ratings.filter(item => item.id != rating.id)
                     song.ratings = newRatings
