@@ -24,10 +24,8 @@ function SongCard({song, songs, setSongs}) {
     fetch(`https://itunes.apple.com/search?media=music&entity=song&term=${song.title}`)
     .then(resp => {
         if (resp.ok) {
-            console.log(resp)
             resp.json()
             .then(data => {
-                console.log(data)
                 const songsMatch = data.results.filter(songItem => songItem.artistName == song.artist);
                 const songData = songsMatch[0]
                 if (songData) {

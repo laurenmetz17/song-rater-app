@@ -67,7 +67,6 @@ function RatingCard({rating, song, songs, setSongs}) {
             if (resp.ok) {
                 resp.json()
                 .then((newRating) => {
-                    console.log(newRating)
                     const newRatings = song.ratings.map(rating => rating.id == newRating.id? newRating : rating)
                     song.ratings = newRatings 
                     const newSongs = songs.map(songItem => songItem.id == rating.song_id? song : songItem)

@@ -11,7 +11,7 @@ function Logout({setListener}) {
             },
             body: JSON.stringify(null), 
         })
-        .then(resp => console.log(resp))
+        .then(resp => resp)
         .then(() => {
             setListener(null)
         })

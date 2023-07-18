@@ -2,12 +2,10 @@ import {React, useState} from 'react';
 
 function Create({songs, setSongs}) {
 
-    //validation errors
     const [songError,setSongError] = useState(false)
     const [songForm, setSongForm] = useState({
         title: "",
         artist: "",
-        art: ""
     })
 
     function updateSong(e) {
@@ -27,7 +25,6 @@ function Create({songs, setSongs}) {
                     const songsMatch = data.results.filter(songItem => songItem.artistName == songForm.artist);
                     const songData = songsMatch[0]
                     if (songData) {
-                        setSongForm({...songForm, "art" : songData.artworkUrl100})
                         fetch('', {
                             method: 'POST',
                             headers: {
@@ -64,7 +61,7 @@ function Create({songs, setSongs}) {
         e.preventDefault();
         console.log(songForm)
         setArt(e)
-        setSongForm({"title": "", "artist": "", "art": ""})
+        setSongForm({"title": "", "artist": ""})
 
     }
 
