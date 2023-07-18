@@ -28,9 +28,7 @@ function SongCard({song, songs, setSongs}) {
         const songsMatch = data.results.filter(songItem => songItem.artistName == song.artist);
         const songData = songsMatch[0]
         setCover(songData.artworkUrl100)
-    })
-
-    
+    }) 
     
     function updateRating(e) {
         const target = e.target.name

@@ -19,7 +19,11 @@ class RatingsController < ApplicationController
     def update
         rating = current_listener.ratings.find_by(id: params[:id])
         rating.update(comment: params[:comment])
-        render json: rating
+        if rating.valid?
+            render json: rating
+        else
+            render json: {errors: rating.errors.full_messages}, status: :unprocessable_entity
+        end
     end
 
     def destroy

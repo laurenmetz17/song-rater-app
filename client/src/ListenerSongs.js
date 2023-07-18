@@ -7,6 +7,7 @@ function ListenerSongs() {
     let songItems
 
     if (listener != null) {
+        console.log(listener)
         songItems = listener.songs.map(song => (
             <ListenerSongCard key={song.title} song={song}/>
         ))

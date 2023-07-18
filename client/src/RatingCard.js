@@ -57,15 +57,15 @@ function RatingCard({rating, song, songs, setSongs}) {
     function updateRating(e) {
         e.preventDefault();
         e.target.children[0].value = ''
-        if (listener != null) {
-            if (listener.id == rating.listener_id) {
-                fetch(`/songs/${song.id}/ratings/${rating.id}`, {
-                    method: 'PATCH',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({comment: commentChange}), 
-                }).then(resp => resp.json())
+        fetch(`/songs/${song.id}/ratings/${rating.id}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({comment: commentChange}), 
+        }).then(resp => {
+            if (resp.ok) {
+                resp.json()
                 .then((newRating) => {
                     console.log(newRating)
                     const newRatings = song.ratings.map(rating => rating.id == newRating.id? newRating : rating)
@@ -75,31 +75,44 @@ function RatingCard({rating, song, songs, setSongs}) {
                 })
             }
             else {
+                setCommentChange(rating.comment)
                 setEditError(true)
                 setTimeout(() => {
-                    setEditError(false);
+                setEditError(false);
                 }, "1500");
+            }
+        })
+    }
+
+    function editDisplay() {
+        if (listener) {
+            if (listener.id == rating.listener_id) {
+                return (
+                    <div>
+                        <form id='update_rating' onSubmit={updateRating}>
+                            <input name="comment" type="text" value={commentChange} onChange={updateComment}></input>
+                            <input type="submit" value="Change Comment"></input>
+                        </form> 
+                        <button id="delete" onClick={handleDelete}>X</button>
+                    </div>
+                )
+            }
+            else {
+                return null
             }
         }
         else {
-            setEditError(true)
-            setTimeout(() => {
-                setEditError(false);
-            }, "1500");
+            return null
         }
     }
     
-    return(
+    return (
         <div id="rating">
             <h3>{ratingListener} :</h3>
             <h5>{stars}</h5>
             <h5>{rating.comment}</h5>
-            <form id='update_rating' onSubmit={updateRating}>
-                <input name="comment" type="text" value={commentChange} onChange={updateComment}></input>
-                <input type="submit" value="Change Comment"></input>
-            </form>
-            <button id="delete" onClick={handleDelete}>X</button>
-            <h5 style={{color: "red"}}>{editError ? "Listeners can only edit their own ratings" :null}</h5>
+            {editDisplay()}
+            <h5 style={{color: "red"}}>{editError ? "Rating Incomplete" :null}</h5>
         </div>
     )
 }
