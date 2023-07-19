@@ -1,9 +1,11 @@
 import {React, useState} from 'react';
+import {useNavigate} from 'react-router-dom'
 
 function Login({setListener}) {
 
     const [logError,setLogError] = useState(false)
     const [signupError, setSignupError] = useState(false)
+    const navigate = useNavigate()
 
     const [loginForm, setLoginForm] = useState({
         username: "",
@@ -75,6 +77,7 @@ function Login({setListener}) {
                 resp.json()
                 .then((listenerLog) => {
                     setListener(listenerLog)
+                    navigate('/songsPage')
                 }) 
             }
             else {

@@ -1,5 +1,8 @@
+import {useNavigate} from 'react-router-dom'
 
 function Logout({setListener}) {
+
+    const navigate = useNavigate()
 
     function handleLogout(e) {
         e.preventDefault();
@@ -14,6 +17,7 @@ function Logout({setListener}) {
         .then(resp => resp)
         .then(() => {
             setListener(null)
+            navigate('/login')
         })
     }
 
