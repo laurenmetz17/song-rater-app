@@ -14,7 +14,6 @@ function Login({setListener}) {
 
     const [signupForm, setSignupForm] = useState({
         name: "",
-        profile_pic: "",
         username: "",
         password: "",
         password_confirmation: ""
@@ -33,7 +32,6 @@ function Login({setListener}) {
             if (resp.ok) {
                 resp.json()
                 .then((newListener) => {
-                    
                 }) 
             }
             else {
@@ -44,6 +42,7 @@ function Login({setListener}) {
         .catch(error => {
             console.error(error);
         })
+        setSignupForm({name: "", username: "", password: "", password_confirmation:""})
         e.target.children[1].value = ""
         e.target.children[3].value = ""
         e.target.children[5].value = ""
@@ -88,6 +87,7 @@ function Login({setListener}) {
         .catch(error => {
             console.error(error);
         })
+        setLoginForm({username: "", password: ""})
         e.target.children[1].value = ""
         e.target.children[3].value = ""
         
